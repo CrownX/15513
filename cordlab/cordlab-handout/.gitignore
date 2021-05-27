@@ -1,0 +1,10 @@
+# Temporary files
+*~
+._*
+core
+*.dSYM
+
+# Generated files
+cord-test
+*.o
+cordlab-handin.tar
