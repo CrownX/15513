@@ -26,6 +26,20 @@
  * @return
  */
 bool is_cord(const cord_t *R) {
+    /* NULL */
+    if (NULL == R) return true;
+
+    /* Leaf */
+    if (R->len > 0 && R->len == strlen(R->data)) return R->left == NULL && R->right == NULL;
+
+    /* Non-leaf */
+    if (NULL == R->data) {
+        size_t cord_len = 0;
+        if (NULL != R->left) cord_len += cord_length(R->left);
+        if (NULL != R->right) cord_len += cord_length(R->right);
+        return cord_len == R->len;
+    }
+
     return false;
 }
 
@@ -35,7 +49,18 @@ bool is_cord(const cord_t *R) {
  * @return
  */
 size_t cord_length(const cord_t *R) {
-    return 0;
+    /* NULL */
+    if (NULL == R) return 0;
+
+    /* Leaf */
+    if (NULL == R->left && NULL == R->right) return R->len;
+
+    /* Non-leaf */
+    size_t cord_len = 0;
+    if (NULL != R->left) cord_len += cord_length(R->left);
+    if (NULL != R->right) cord_len += cord_length(R->right);
+
+    return cord_len;
 }
 
 /**
