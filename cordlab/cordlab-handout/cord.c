@@ -174,7 +174,7 @@ const cord_t *cord_sub(const cord_t *R, size_t lo, size_t hi) {
 
     /* Leaf */
     if (NULL == R->left && NULL == R->right) {
-        char *src = R->data;
+        const char *src = R->data;
         char *dst = xmalloc(hi - lo + 1);
         char *result = dst;
         for (int i=lo; i<hi; i++) 
@@ -187,12 +187,11 @@ const cord_t *cord_sub(const cord_t *R, size_t lo, size_t hi) {
     if (NULL != R->left) left_len = R->left->len;
     if (NULL != R->right) right_len = R->right->len;
 
-    cord_t *left = NULL, *right = NULL;
     if (hi <= left_len) return cord_sub(R->left, lo, hi);
     else if (left_len <= lo) return cord_sub(R->right, lo - left_len, hi);
     else {
-        left = cord_sub(R->left, lo, left_len);
-        right = cord_sub(left_len, hi);
+        const cord_t *left = cord_sub(R->left, lo, left_len);
+        const cord_t *right = cord_sub(R->right, left_len, hi);
         return cord_join(left, right);
     }
 }
