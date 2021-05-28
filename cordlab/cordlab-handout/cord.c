@@ -145,7 +145,16 @@ char *cord_tostring(const cord_t *R) {
  */
 char cord_charat(const cord_t *R, size_t i) {
     assert(0 <= i && i <= cord_length(R));
-    return '\0';
+    /* NULL */
+    if (NULL == R) return '\0';
+
+    /* Recurrsion */
+    size_t left_len = 0, right_len = 0;
+    if (NULL != R->left) left_len = R->left->len;
+    if (NULL != R->right) right_len = R->right->len;
+    
+    if (i <= left_len) return cord_charat(R->left, i);
+    else return cord_charat(R->right, i - left_len);
 }
 
 /**
@@ -160,5 +169,30 @@ char cord_charat(const cord_t *R, size_t i) {
  */
 const cord_t *cord_sub(const cord_t *R, size_t lo, size_t hi) {
     assert(0 <= lo && lo <= hi && hi <= cord_length(R));
-    return NULL;
+    /* Not need to sub, include NULL */
+    if (0 == lo && hi == cord_length(R)) return R;
+
+    /* Leaf */
+    if (NULL == R->left && NULL == R->right) {
+        char *src = R->data;
+        char *dst = xmalloc(hi - lo + 1);
+        char *result = dst;
+        for (int i=lo; i<hi; i++) 
+            *(dst + i) = *(src + i);
+        return cord_new(result);
+    }
+
+    /* Non-leaf */
+    size_t left_len = 0, right_len = 0;
+    if (NULL != R->left) left_len = R->left->len;
+    if (NULL != R->right) right_len = R->right->len;
+
+    cord_t *left = NULL, *right = NULL;
+    if (hi <= left_len) return cord_sub(R->left, lo, hi);
+    else if (left_len <= lo) return cord_sub(R->right, lo - left_len, hi);
+    else {
+        left = cord_sub(R->left, lo, left_len);
+        right = cord_sub(left_len, hi);
+        return cord_join(left, right);
+    }
 }
