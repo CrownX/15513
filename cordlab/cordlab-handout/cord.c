@@ -35,8 +35,14 @@ bool is_cord(const cord_t *R) {
     /* Non-leaf */
     if (NULL == R->data) {
         size_t cord_len = 0;
-        if (NULL != R->left) cord_len += cord_length(R->left);
-        if (NULL != R->right) cord_len += cord_length(R->right);
+        if (NULL != R->left) {
+            if (!is_cord(R->left)) return false;
+            cord_len += R->left->len;
+        }
+        if (NULL != R->right) {
+            if (!is_cord(R->right)) return false;
+            cord_len += R->right->len;
+        }
         return cord_len == R->len;
     }
 
@@ -57,8 +63,8 @@ size_t cord_length(const cord_t *R) {
 
     /* Non-leaf */
     size_t cord_len = 0;
-    if (NULL != R->left) cord_len += cord_length(R->left);
-    if (NULL != R->right) cord_len += cord_length(R->right);
+    if (NULL != R->left) cord_len += R->left->len;
+    if (NULL != R->right) cord_len += R->right->len;
 
     return cord_len;
 }
@@ -69,7 +75,17 @@ size_t cord_length(const cord_t *R) {
  * @return
  */
 const cord_t *cord_new(const char *s) {
-    return NULL;
+    /* NULL */
+    if (NULL == s) return NULL;
+
+    /* Construct */
+    cord_t *R = (cord_t*)xmalloc(sizeof(cord_t));
+    R->len = strlen(s);
+    R->left = NULL;
+    R->right = NULL;
+    R->data = s;
+
+    return R;
 }
 
 /**
@@ -79,7 +95,18 @@ const cord_t *cord_new(const char *s) {
  * @return
  */
 const cord_t *cord_join(const cord_t *R, const cord_t *S) {
-    return NULL;
+    /* NULL */
+    if (NULL == R) return S;
+    if (NULL == S) return R;
+
+    /* Construct */
+    cord_t *N = (cord_t*)xmalloc(sizeof(cord_t));
+    N->len = R->len + S->len;
+    N->left = R;
+    N->right = S;
+    N->data = NULL;
+
+    return N;
 }
 
 /**
@@ -88,7 +115,22 @@ const cord_t *cord_join(const cord_t *R, const cord_t *S) {
  * @return
  */
 char *cord_tostring(const cord_t *R) {
-    char *result = malloc(cord_length(R) + 1);
+    char *result = xmalloc(cord_length(R) + 1);
+    /* NULL */
+    if (NULL == R) return result;
+    
+    /* Recursion */
+    char *left = cord_tostring(R->left);
+    char *right = cord_tostring(R->right);
+
+    /* Concatenate */
+    strcat(result, left);
+    strcat(result, right);
+    
+    /* Free */
+    free(left);
+    free(right);
+    
     return result;
 }
 
