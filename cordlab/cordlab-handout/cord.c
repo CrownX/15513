@@ -31,15 +31,16 @@ bool is_cord(const cord_t *R) {
         return true;
     }
 
-    /* Non-leaf */
-    if (0 < R->len && NULL == R->data) {
-        size_t cord_len = cord_length(R->left) + cord_length(R->right);
-        return R->len == cord_len && is_cord(R->left) && is_cord(R->right);
+    /* Leaf */
+    if (0 < R->len && NULL != R->data && R->len == strlen(R->data)) {
+        return R->left == NULL && R->right == NULL;
     }
 
-    /* Leaf */
-    if (0 < R->len && R->len == strlen(R->data)) {
-        return R->left == NULL && R->right == NULL;
+    /* Non-leaf */
+    //if (0 < R->len && NULL == R->data) {
+    if (0 < R->len) {
+        size_t cord_len = cord_length(R->left) + cord_length(R->right);
+        return R->len == cord_len && is_cord(R->left) && is_cord(R->right);
     }
 
     return false;
@@ -52,19 +53,23 @@ bool is_cord(const cord_t *R) {
  */
 size_t cord_length(const cord_t *R) {
     /* NULL */
-    if (NULL == R)
+    if (NULL == R) {
         return 0;
+    }
 
     /* Leaf */
-    if (NULL == R->left && NULL == R->right)
+    if (NULL == R->left && NULL == R->right) {
         return R->len;
+    }
 
     /* Non-leaf */
     size_t cord_len = 0;
-    if (NULL != R->left)
+    if (NULL != R->left) {
         cord_len += R->left->len;
-    if (NULL != R->right)
+    }
+    if (NULL != R->right) {
         cord_len += R->right->len;
+    }
 
     return cord_len;
 }
@@ -76,8 +81,9 @@ size_t cord_length(const cord_t *R) {
  */
 const cord_t *cord_new(const char *s) {
     /* NULL */
-    if (NULL == s || 0 == strlen(s))
+    if (NULL == s || 0 == strlen(s)) {
         return NULL;
+    }
 
     /* Construct */
     cord_t *R = (cord_t *)xmalloc(sizeof(cord_t));
@@ -165,15 +171,8 @@ char cord_charat(const cord_t *R, size_t i) {
     }
 
     /* Recursion */
-    size_t left_len = 0, right_len = 0;
-    if (NULL != R->left) {
-        left_len = R->left->len;
-    }
-    if (NULL != R->right) {
-        right_len = R->right->len;
-    }
-
-    if (i <= left_len) {
+    size_t left_len = (NULL == R->left)? 0: R->left->len;
+    if (i < left_len) {
         return cord_charat(R->left, i);
     } else {
         return cord_charat(R->right, i - left_len);
@@ -208,17 +207,10 @@ const cord_t *cord_sub(const cord_t *R, size_t lo, size_t hi) {
     }
 
     /* Non-leaf */
-    size_t left_len = 0, right_len = 0;
-    if (NULL != R->left) {
-        left_len = R->left->len;
-    }
-    if (NULL != R->right) {
-        right_len = R->right->len;
-    }
-
+    size_t left_len = (NULL == R->left)? 0: R->left->len;
     if (hi <= left_len) {
         return cord_sub(R->left, lo, hi);
-    } else if (left_len < lo) {
+    } else if (left_len <= lo) {
         return cord_sub(R->right, lo - left_len, hi - left_len);
     } else {
         const cord_t *left = cord_sub(R->left, lo, left_len);
