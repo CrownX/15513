@@ -249,9 +249,12 @@ long subtractionOK(long x, long y) {
  *   Rating: 3
  */
 long isLessOrEqual(long x, long y) {
+    long xmsb = (x >> 63) & 0x01L;
+    long ymsb = (y >> 63) & 0x01L;
     long subt = y + (~x + 1); // y - x
     long smsb = (subt >> 63) & 0x01L;
-    return !smsb;
+    long mask = ~(!(xmsb ^ ymsb) & 0x01L) + 1;
+    return (mask & !smsb) | (~mask & xmsb);
 }
 /*
  * bitMask - Generate a mask consisting of all 1's
