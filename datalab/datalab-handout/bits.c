@@ -187,7 +187,7 @@ long copyLSB(long x) {
  *   Rating: 2
  */
 long distinctNegation(long x) {
-    return 2;
+    return !!(x ^ (~x + 1));
 }
 /*
  * getByte - Extract byte n from word x
@@ -198,9 +198,7 @@ long distinctNegation(long x) {
  *   Rating: 2
  */
 long getByte(long x, long n) {
-    //long mov = x >> (n << 3);
-    long ret = x & 0xFFL;
-    return ret;
+    return (x >> (n << 3)) & 0xFFL;
 }
 /*
  * anyEvenBit - return 1 if any even-numbered bit in word set to 1
@@ -211,8 +209,14 @@ long getByte(long x, long n) {
  *   Rating: 2
  */
 long anyEvenBit(long x) {
-    //long ret = x & 0x55L;
-    return 2L;
+    return !!((x & 0x55L) 
+         | ((x >>  8) & 0x55L)
+         | ((x >> 16) & 0x55L)
+         | ((x >> 24) & 0x55L)
+         | ((x >> 32) & 0x55L)
+         | ((x >> 40) & 0x55L)
+         | ((x >> 48) & 0x55L)
+         | ((x >> 56) & 0x55L));
 }
 // 3
 /*
