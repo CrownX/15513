@@ -2,6 +2,7 @@
  * CS:APP Data Lab
  *
  * <Please put your name and userid here>
+ * <Zhiqing Xiao, zhiqingx@andrew.cmu.edu>
  *
  * bits.c - Source file with your solutions to the Lab.
  *          This is the file you will hand in to your instructor.
@@ -176,7 +177,7 @@ NOTES:
  *   Rating: 2
  */
 long copyLSB(long x) {
-    return 2;
+    return ~(x & 0x01L) + 1;
 }
 /*
  * distinctNegation - returns 1 if x != -x.
@@ -197,7 +198,9 @@ long distinctNegation(long x) {
  *   Rating: 2
  */
 long getByte(long x, long n) {
-    return 2L;
+    //long mov = x >> (n << 3);
+    long ret = x & 0xFFL;
+    return ret;
 }
 /*
  * anyEvenBit - return 1 if any even-numbered bit in word set to 1
@@ -208,6 +211,7 @@ long getByte(long x, long n) {
  *   Rating: 2
  */
 long anyEvenBit(long x) {
+    //long ret = x & 0x55L;
     return 2L;
 }
 // 3
@@ -219,6 +223,8 @@ long anyEvenBit(long x) {
  *   Rating: 3
  */
 long conditional(long x, long y, long z) {
+    // x == 0: z, else y
+
     return 2L;
 }
 /*
@@ -240,6 +246,8 @@ long subtractionOK(long x, long y) {
  *   Rating: 3
  */
 long isLessOrEqual(long x, long y) {
+    // x - y <= 0: 1, else 0
+
     return 2;
 }
 /*
@@ -253,6 +261,8 @@ long isLessOrEqual(long x, long y) {
  *   Rating: 3
  */
 long bitMask(long highbit, long lowbit) {
+    // bits = abs(lowbit - highbit)
+    // shifts bits
     return 2L;
 }
 // 4
