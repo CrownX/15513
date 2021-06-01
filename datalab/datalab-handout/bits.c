@@ -223,9 +223,8 @@ long anyEvenBit(long x) {
  *   Rating: 3
  */
 long conditional(long x, long y, long z) {
-    // x == 0: z, else y
-
-    return 2L;
+    long mask = ~(!x & 0x01L) + 1;
+    return (~mask & y) | (mask & z);
 }
 /*
  * subtractionOK - Determine if can compute x-y without overflow
