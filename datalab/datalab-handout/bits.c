@@ -209,14 +209,9 @@ long getByte(long x, long n) {
  *   Rating: 2
  */
 long anyEvenBit(long x) {
-    return !!((x & 0x55L) 
-         | ((x >>  8) & 0x55L)
-         | ((x >> 16) & 0x55L)
-         | ((x >> 24) & 0x55L)
-         | ((x >> 32) & 0x55L)
-         | ((x >> 40) & 0x55L)
-         | ((x >> 48) & 0x55L)
-         | ((x >> 56) & 0x55L));
+    long constant = 0x55L | 0x55L << 32;
+    constant |= constant << 16;
+    return !!((x & constant) | ((x >> 8) & constant));
 }
 // 3
 /*
