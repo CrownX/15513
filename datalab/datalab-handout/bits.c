@@ -211,7 +211,8 @@ long getByte(long x, long n) {
 long anyEvenBit(long x) {
     long constant = 0x55L | 0x55L << 32;
     constant |= constant << 16;
-    return !!((x & constant) | ((x >> 8) & constant));
+    constant |= constant << 8;
+    return !!(x & constant);
 }
 // 3
 /*
