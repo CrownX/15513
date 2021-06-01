@@ -235,7 +235,11 @@ long conditional(long x, long y, long z) {
  *   Rating: 3
  */
 long subtractionOK(long x, long y) {
-    return 2L;
+    long xmsb = (x >> 63) & 0x01L;
+    long ymsb = (y >> 63) & 0x01L;
+    long subt = x + (~y + 1); // x - y 
+    long smsb = (subt >> 63) & 0x01L;
+    return !((xmsb ^ ymsb) & (xmsb ^ smsb));
 }
 /*
  * isLessOrEqual - if x <= y  then return 1, else return 0
@@ -245,9 +249,9 @@ long subtractionOK(long x, long y) {
  *   Rating: 3
  */
 long isLessOrEqual(long x, long y) {
-    // x - y <= 0: 1, else 0
-
-    return 2;
+    long subt = y + (~x + 1); // y - x
+    long smsb = (subt >> 63) & 0x01L;
+    return !smsb;
 }
 /*
  * bitMask - Generate a mask consisting of all 1's
