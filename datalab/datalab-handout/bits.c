@@ -282,10 +282,17 @@ long bitMask(long highbit, long lowbit) {
  *    trueThreeFourths(11L) = 8
  *    trueThreeFourths(-9L) = -6
  *    trueThreeFourths(4611686018427387904L) = 3458764513820540928L (no
- * overflow) Legal ops: ! ~ & ^ | + << >> Max ops: 20 Rating: 4
+ * overflow) 
+ *   Legal ops: ! ~ & ^ | + << >> 
+ *   Max ops: 20 
+ *   Rating: 4
  */
 long trueThreeFourths(long x) {
-    return 2;
+    long quat = x >> 2; // 1/4 x
+    long subt = x + (~quat + 1);
+    // TODO: x > 0 rounding
+    // TODO: check if overflow exits
+    return subt;
 }
 /*
  * bitCount - returns count of number of 1's in word
