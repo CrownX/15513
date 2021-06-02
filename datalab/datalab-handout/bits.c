@@ -223,7 +223,7 @@ long anyEvenBit(long x) {
  *   Rating: 3
  */
 long conditional(long x, long y, long z) {
-    long mask = ~(!x & 0x01L) + 1;
+    long mask = ~(!x) + 1;
     return (~mask & y) | (mask & z);
 }
 /*
@@ -253,8 +253,8 @@ long isLessOrEqual(long x, long y) {
     long ymsb = (y >> 63) & 0x01L;
     long subt = y + (~x + 1); // y - x
     long smsb = (subt >> 63) & 0x01L;
-    long mask = ~(!(xmsb ^ ymsb) & 0x01L) + 1;
-    return (mask & !smsb) | (~mask & xmsb);
+    long mask = ~(!(xmsb ^ ymsb)) + 1;
+    return (~mask & xmsb) | (mask & !smsb);
 }
 /*
  * bitMask - Generate a mask consisting of all 1's
@@ -269,7 +269,7 @@ long isLessOrEqual(long x, long y) {
 long bitMask(long highbit, long lowbit) {
     long bits = highbit + (~lowbit + 1); // hi - lo
     long bmsb = (bits >> 63) & 0x01L;
-    long mask = ~(!bmsb & 0x01L) + 1;
+    long mask = ~(!bmsb) + 1;
     long lmsk = mask << lowbit;
     long hmsk = (mask << highbit) << 1;
     return (lmsk ^ hmsk) & mask;
@@ -288,11 +288,11 @@ long bitMask(long highbit, long lowbit) {
  *   Rating: 4
  */
 long trueThreeFourths(long x) {
-    long quat = x >> 2; // 1/4 x
-    long subt = x + (~quat + 1);
-    // TODO: x > 0 rounding
-    // TODO: check if overflow exits
-    return subt;
+    long nsbt = x + (~(x >> 2) + 1);
+    long psbt = x + ((~x + 1) >> 2);
+    long xmsb = (x >> 63) & 0x01L;
+    long mask = ~(!xmsb) + 1;
+    return (~mask & nsbt) | (mask & psbt);
 }
 /*
  * bitCount - returns count of number of 1's in word
