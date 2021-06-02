@@ -267,9 +267,12 @@ long isLessOrEqual(long x, long y) {
  *   Rating: 3
  */
 long bitMask(long highbit, long lowbit) {
-    // bits = abs(lowbit - highbit)
-    // shifts bits
-    return 2L;
+    long bits = highbit + (~lowbit + 1); // hi - lo
+    long bmsb = (bits >> 63) & 0x01L;
+    long mask = ~(!bmsb & 0x01L) + 1;
+    long lmsk = mask << lowbit;
+    long hmsk = (mask << highbit) << 1;
+    return (lmsk ^ hmsk) & mask;
 }
 // 4
 /*
