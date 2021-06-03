@@ -340,12 +340,11 @@ long bitCount(long x) {
  *   Rating: 2
  */
 unsigned floatNegate(unsigned uf) {
-    unsigned exp = (uf >> 23) & 0xFF;
-    unsigned frac = uf & 0x7FFFFF;
-    if (exp == 0xFF && (uf & 0x7FFFFF) == 0) { // exp == 255 && frac != 0
+    if ((uf >> 23 & 0xFF) == 255 && (uf & 0x7FFFFF) != 0) {
         return uf;
-    } 
-    return uf ^ (0x1L << 31);
+    } else {
+        return uf ^ (0x1L << 31);
+    }
 }
 /*
  * floatIsLess - Compute f < g for floating point arguments f and g.
