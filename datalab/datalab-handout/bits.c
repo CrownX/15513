@@ -396,20 +396,23 @@ unsigned floatScale4(unsigned uf) {
     unsigned fs = (uf >> 31) & 0x01;
     unsigned fe = (uf >> 23) & 0xFF;
     unsigned ff = uf & 0x7FFFFF;
-    if (fe == 0xFF) { // uf == NaN
+    if (fe == 255) { // uf == NaN
         if (ff != 0) return uf;
     }
-    
-    if (fe == 0x00) { // uf == 0
-        if (ff == 0) return uf;
-    }
  
-    if (fe == 0) { // denormalized number
-        if (ff <= 0x1FFFFFL) return (fs << 31) | (fe << 23) | (ff << 2);
-    }
-
     if (fe >= 253) { // general case
         return (fs << 31) | (0xFF << 23);
+    }
+
+    if (fe == 0) { // uf == 0
+        if (ff == 0) {
+            return uf;
+        } else if (ff <= 0x1FFFFFL) { // denormalized number
+            return (fs << 31) | (fe << 23) | ((ff << 2) & 0x7FFFFF);
+        } else {
+            fe += 2;
+            return (fs << 31) | (fe << 23) | ((ff << 1) & 0x7FFFFF);
+        }
     }
 
     fe += 2;
