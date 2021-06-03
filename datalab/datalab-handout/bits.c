@@ -305,19 +305,19 @@ long bitCount(long x) {
     long mask1, mask2, mask3, mask4, mask5, mask6;
 
     mask1 = 0x11L | (0x11L << 32); // 0x0000 0011 0000 0011L
-    mask1 |= mask1 << 16; // 0x0011 0011 0011 0011L
-    mask1 |= mask1 << 8; // 0x1111 1111 1111 1111L
-    mask2 = mask1 | mask1 << 1; // 0x3333 3333 3333 3333L
-    mask1 |= mask1 << 2; // 0x5555 5555 5555 5555L
+    mask1 |= mask1 << 16;          // 0x0011 0011 0011 0011L
+    mask1 |= mask1 << 8;           // 0x1111 1111 1111 1111L
+    mask2 = mask1 | mask1 << 1;    // 0x3333 3333 3333 3333L
+    mask1 |= mask1 << 2;           // 0x5555 5555 5555 5555L
 
     mask3 = 0x0FL | (0x0FL << 16); // 0x0000 0000 000F 000FL
-    mask3 |= mask3 << 32; // 0x000F 000F 000F 000FL
-    mask4 = mask3 | mask3 << 4; // 0x00FF 00FF 00FF 00FFL
-    mask3 |= mask3 << 8; // 0x0F0F 0F0F 0F0F 0F0FL
+    mask3 |= mask3 << 32;          // 0x000F 000F 000F 000FL
+    mask4 = mask3 | mask3 << 4;    // 0x00FF 00FF 00FF 00FFL
+    mask3 |= mask3 << 8;           // 0x0F0F 0F0F 0F0F 0F0FL
 
-    mask6 = 0xFFL | (0xFFL << 8); // 0x0000 0000 0000 FFFFL
+    mask6 = 0xFFL | (0xFFL << 8);  // 0x0000 0000 0000 FFFFL
     mask5 = mask6 | (mask6 << 32); // 0x0000 FFFF 0000 FFFFL
-    mask6 |= mask6 << 16; // 0x0000 0000 FFFF FFFFL
+    mask6 |= mask6 << 16;          // 0x0000 0000 FFFF FFFFL
 
     x = (x & mask1) + ((x >> 1) & mask1);
     x = (x & mask2) + ((x >> 2) & mask2);
@@ -340,11 +340,11 @@ long bitCount(long x) {
  *   Rating: 2
  */
 unsigned floatNegate(unsigned uf) {
-    if ((uf >> 23 & 0xFF) == 255 && (uf & 0x7FFFFF) != 0) {
+    if ((uf >> 23 & 0xFF) == 255 &&
+        (uf & 0x7FFFFF) != 0) { // exp == 255 && frac != 0
         return uf;
-    } else {
-        return uf ^ (0x1L << 31);
     }
+    return uf ^ (0x1L << 31);
 }
 /*
  * floatIsLess - Compute f < g for floating point arguments f and g.
@@ -358,8 +358,30 @@ unsigned floatNegate(unsigned uf) {
  *   Rating: 3
  */
 int floatIsLess(unsigned uf, unsigned ug) {
+    unsigned fs = (uf >> 31) & 0x01;
+    unsigned fe = (uf >> 23) & 0xFF;
+    unsigned ff = uf & 0x7FFFFF;
+    unsigned gs = (ug >> 31) & 0x01;
+    unsigned ge = (ug >> 23) & 0xFF;
+    unsigned gf = ug & 0x7FFFFF;
+    int scomp = fs - gs;
+    int ecomp = fe - ge;
+    int fcomp = ff - gf;
+    if (fe == 0xFF) { // uf == NaN || ug == NaN
+        if (ff != 0) return 0;
+    }
+    if (ge == 0xFF) {
+        if (gf != 0) return 0;
+    }
+    if (fe == 0 && ff == 0) { // -0 == +0
+        if (ge == 0 && gf == 0) return 0;
+    }
+    
+    if (scomp != 0) return fs;
+    if (ecomp != 0) return fs ^ (ecomp < 0);
+    if (fcomp != 0) return fs ^ (fcomp < 0);
 
-    return 2;
+    return 0;
 }
 /*
  * floatScale4 - Return bit-level equivalent of expression 4*f for
