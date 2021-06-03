@@ -340,9 +340,8 @@ long bitCount(long x) {
  *   Rating: 2
  */
 unsigned floatNegate(unsigned uf) {
-    if ((uf >> 23 & 0xFF) == 255 &&
-        (uf & 0x7FFFFF) != 0) { // exp == 255 && frac != 0
-        return uf;
+    if ((uf >> 23 & 0xFF) == 255) { // exp == 255 && frac != 0
+        if ((uf & 0x7FFFFF) != 0) return uf;
     }
     return uf ^ (0x1L << 31);
 }
@@ -367,10 +366,10 @@ int floatIsLess(unsigned uf, unsigned ug) {
     int scomp = fs - gs;
     int ecomp = fe - ge;
     int fcomp = ff - gf;
-    if (fe == 0xFF) { // uf == NaN || ug == NaN
+    if (fe == 0xFF) { // uf == NaN 
         if (ff != 0) return 0;
     }
-    if (ge == 0xFF) {
+    if (ge == 0xFF) { // ug == NaN
         if (gf != 0) return 0;
     }
     if (fe == 0 && ff == 0) { // -0 == +0
@@ -395,5 +394,13 @@ int floatIsLess(unsigned uf, unsigned ug) {
  *   Rating: 4
  */
 unsigned floatScale4(unsigned uf) {
+    unsigned fs = (uf >> 31) & 0x01;
+    unsigned fe = (uf >> 23) & 0xFF;
+    unsigned ff = uf & 0x7FFFFF;
+    if (fe == 0xFF) { // uf == NaN
+        if (ff != 0) return uf;
+    }
+    
+
     return 2;
 }
