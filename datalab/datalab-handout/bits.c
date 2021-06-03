@@ -304,13 +304,11 @@ long trueThreeFourths(long x) {
 long bitCount(long x) {
     long mask1, mask2, mask3, mask4, mask5, mask6;
 
-    mask1 = 0x55L | (0x55L << 32);
-    mask1 |= mask1 << 16;
-    mask1 |= mask1 << 8; // 0x5555 5555 5555 5555L
-
-    mask2 = 0x33L | (0x33L << 32);
-    mask2 |= mask2 << 16;
-    mask2 |= mask2 << 8; // 0x3333 3333 3333 3333L
+    mask1 = 0x11L | (0x11L << 32); // 0x0000 0011 0000 0011L
+    mask1 |= mask1 << 16; // 0x0011 0011 0011 0011L
+    mask1 |= mask1 << 8; // 0x1111 1111 1111 1111L
+    mask2 = mask1 | mask1 << 1; // 0x3333 3333 3333 3333L
+    mask1 |= mask1 << 2; // 0x5555 5555 5555 5555L
 
     mask3 = 0x0FL | (0x0FL << 16); // 0x0000 0000 000F 000FL
     mask3 |= mask3 << 32; // 0x000F 000F 000F 000FL
