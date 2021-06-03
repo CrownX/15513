@@ -341,7 +341,8 @@ long bitCount(long x) {
  */
 unsigned floatNegate(unsigned uf) {
     if ((uf >> 23 & 0xFF) == 255) { // exp == 255 && frac != 0
-        if ((uf & 0x7FFFFF) != 0) return uf;
+        if ((uf & 0x7FFFFF) != 0)
+            return uf;
     }
     return uf ^ (0x1L << 31);
 }
@@ -366,19 +367,25 @@ int floatIsLess(unsigned uf, unsigned ug) {
     int scomp = fs - gs;
     int ecomp = fe - ge;
     int fcomp = ff - gf;
-    if (fe == 0xFF) { // uf == NaN 
-        if (ff != 0) return 0;
+    if (fe == 0xFF) { // uf == NaN
+        if (ff != 0)
+            return 0;
     }
     if (ge == 0xFF) { // ug == NaN
-        if (gf != 0) return 0;
+        if (gf != 0)
+            return 0;
     }
     if (fe == 0 && ff == 0) { // -0 == +0
-        if (ge == 0 && gf == 0) return 0;
+        if (ge == 0 && gf == 0)
+            return 0;
     }
-    
-    if (scomp != 0) return fs;
-    if (ecomp != 0) return fs ^ (ecomp < 0);
-    if (fcomp != 0) return fs ^ (fcomp < 0);
+
+    if (scomp != 0)
+        return fs;
+    if (ecomp != 0)
+        return fs ^ (ecomp < 0);
+    if (fcomp != 0)
+        return fs ^ (fcomp < 0);
     return 0;
 }
 /*
@@ -393,28 +400,33 @@ int floatIsLess(unsigned uf, unsigned ug) {
  *   Rating: 4
  */
 unsigned floatScale4(unsigned uf) {
-    unsigned fs = (uf >> 31) & 0x01;
-    unsigned fe = (uf >> 23) & 0xFF;
-    unsigned ff = uf & 0x7FFFFF;
-    if (fe == 255) { // uf == NaN
-        if (ff != 0) return uf;
-    }
- 
-    if (fe >= 253) { // general case
-        return (fs << 31) | (0xFF << 23);
-    }
+    unsigned fs = uf & 0x80000000;
+    unsigned fe = uf & 0x7F800000;
+    unsigned de = fe >> 23;
+    unsigned ff = uf & 0x007FFFFF;
 
-    if (fe == 0) { // uf == 0
-        if (ff == 0) {
-            return uf;
-        } else if (ff <= 0x1FFFFFL) { // denormalized number
-            return (fs << 31) | (fe << 23) | ((ff << 2) & 0x7FFFFF);
-        } else {
-            fe += 2;
-            return (fs << 31) | (fe << 23) | ((ff << 1) & 0x7FFFFF);
+    if (de == 0) { // denormalized
+        if (ff == 0) { // +0 -0 
+            return uf; 
         }
+        uf = fs | uf << 1;
+        fe = uf & 0x7F800000;
+        de = fe >> 23;
+        ff = uf & 0x007FFFFF;
+        if (de == 0) return fs | uf << 1;
+        de++;
+        return fs | (de << 23) | ff;
     }
-
-    fe += 2;
-    return (fs << 31) | (fe << 23) | ff;
+    if (de == 255) { // NaN
+        return uf;
+    }
+    de++;
+    if (de == 255) { // overflow: INF
+        return fs | 0x7F800000;
+    }
+    de++;
+    if (de == 255) { // overflow: INF
+        return fs | 0x7F800000;
+    }
+    return fs | (de << 23) | ff;
 }
