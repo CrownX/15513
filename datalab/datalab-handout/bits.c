@@ -302,21 +302,24 @@ long trueThreeFourths(long x) {
  *   Rating: 4
  */
 long bitCount(long x) {
-    long mask1 = 0x55L | (0x55L << 32);
+    long mask1, mask2, mask3, mask4, mask5, mask6;
+
+    mask1 = 0x55L | (0x55L << 32);
     mask1 |= mask1 << 16;
     mask1 |= mask1 << 8; // 0x5555 5555 5555 5555L
-    long mask2 = 0x33L | (0x33L << 32);
+
+    mask2 = 0x33L | (0x33L << 32);
     mask2 |= mask2 << 16;
     mask2 |= mask2 << 8; // 0x3333 3333 3333 3333L
-    long mask3 = 0x0FL | (0x0FL << 32);
-    mask3 |= mask3 << 16;
+
+    mask3 = 0x0FL | (0x0FL << 16); // 0x0000 0000 000F 000FL
+    mask3 |= mask3 << 32; // 0x000F 000F 000F 000FL
+    mask4 = mask3 | mask3 << 4; // 0x00FF 00FF 00FF 00FFL
     mask3 |= mask3 << 8; // 0x0F0F 0F0F 0F0F 0F0FL
-    long mask4 = 0xFFL | (0xFFL << 32);
-    mask4 |= mask4 << 16; // 0x00FF 00FF 00FF 00FFL
-    long mask5 = 0xFFL | (0xFFL << 32);
-    mask5 |= mask5 << 8; // 0x0000 FFFF 0000 FFFFL
-    long mask6 = 0xFFL | (0xFFL << 16);
-    mask6 |= mask6 << 8; // 0x0000 0000 FFFF FFFFL
+
+    mask6 = 0xFFL | (0xFFL << 8); // 0x0000 0000 0000 FFFFL
+    mask5 = mask6 | (mask6 << 32); // 0x0000 FFFF 0000 FFFFL
+    mask6 |= mask6 << 16; // 0x0000 0000 FFFF FFFFL
 
     x = (x & mask1) + ((x >> 1) & mask1);
     x = (x & mask2) + ((x >> 2) & mask2);
