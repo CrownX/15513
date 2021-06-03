@@ -379,7 +379,6 @@ int floatIsLess(unsigned uf, unsigned ug) {
     if (scomp != 0) return fs;
     if (ecomp != 0) return fs ^ (ecomp < 0);
     if (fcomp != 0) return fs ^ (fcomp < 0);
-
     return 0;
 }
 /*
@@ -401,6 +400,18 @@ unsigned floatScale4(unsigned uf) {
         if (ff != 0) return uf;
     }
     
+    if (fe == 0x00) { // uf == 0
+        if (ff == 0) return uf;
+    }
+ 
+    if (fe == 0) { // denormalized number
+        if (ff <= 0x1FFFFFL) return (fs << 31) | (fe << 23) | (ff << 2);
+    }
 
-    return 2;
+    if (fe >= 253) { // general case
+        return (fs << 31) | (0xFF << 23);
+    }
+
+    fe += 2;
+    return (fs << 31) | (fe << 23) | ff;
 }
