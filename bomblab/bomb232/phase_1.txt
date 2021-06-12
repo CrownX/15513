@@ -1,0 +1,52 @@
+Dump of assembler code for function phase_1:
+   0x0000000000401130 <+0>:     sub    $0x8,%rsp
+   0x0000000000401134 <+4>:     mov    $0x6044e0,%esi               # %rsi = 0x6044e0
+   0x0000000000401139 <+9>:     callq  0x40176a <strings_not_equal> # call function strings_not_equal
+   0x000000000040113e <+14>:    test   %al,%al                      # test %rax(%al) (ZF set when %al & %al == 0)
+   0x0000000000401140 <+16>:    je     0x401147 <phase_1+23>        # check ZF, jump
+   0x0000000000401142 <+18>:    callq  0x40197f <explode_bomb>
+   0x0000000000401147 <+23>:    add    $0x8,%rsp
+   0x000000000040114b <+27>:    retq   
+End of assembler dump.
+
+Dump of assembler code for function strings_not_equal:
+   0x000000000040176a <+0>:     push   %r12                             
+   0x000000000040176c <+2>:     push   %rbp
+   0x000000000040176d <+3>:     push   %rbx
+   0x000000000040176e <+4>:     mov    %rdi,%rbx                        # %rbx = %rdi (input param 1)
+   0x0000000000401771 <+7>:     mov    %rsi,%rbp                        # %rbp = %rsi (input param 2)
+   0x0000000000401774 <+10>:    callq  0x401754 <string_length>         # call function string_length
+   0x0000000000401779 <+15>:    mov    %rax,%r12                        # %r12 = %rax (length of %rdi)
+   0x000000000040177c <+18>:    mov    %rbp,%rdi                        # %rdi = %rbp (to compute length of %rsi)
+   0x000000000040177f <+21>:    callq  0x401754 <string_length>         # call function string_length
+   0x0000000000401784 <+26>:    cmp    %rax,%r12                        # compare %rax, r12 (ZF set if equal)
+   0x0000000000401787 <+29>:    jne    0x4017a3 <strings_not_equal+57>  # if not equal, jump
+   0x0000000000401789 <+31>:    jmp    0x40179a <strings_not_equal+48>  # jump to function strings_not_equal (?)
+   0x000000000040178b <+33>:    cmp    0x0(%rbp),%al                    # compare 
+   0x000000000040178e <+36>:    xchg   %ax,%ax                          # 
+   0x0000000000401790 <+38>:    jne    0x4017aa <strings_not_equal+64>  # 
+   0x0000000000401792 <+40>:    add    $0x1,%rbx                        # %rbx += 1
+   0x0000000000401796 <+44>:    add    $0x1,%rbp                        # %rbp += 1
+   0x000000000040179a <+48>:    movzbl (%rbx),%eax                      
+---Type <return> to continue, or q <return> to quit---
+   0x000000000040179d <+51>:    test   %al,%al
+   0x000000000040179f <+53>:    jne    0x40178b <strings_not_equal+33>
+   0x00000000004017a1 <+55>:    jmp    0x4017af <strings_not_equal+69>
+   0x00000000004017a3 <+57>:    mov    $0x1,%eax                        # %rax += 1
+   0x00000000004017a8 <+62>:    jmp    0x4017af <strings_not_equal+69>  # jump
+   0x00000000004017aa <+64>:    mov    $0x1,%eax                        # %rax += 1
+   0x00000000004017af <+69>:    pop    %rbx
+   0x00000000004017b0 <+70>:    pop    %rbp
+   0x00000000004017b1 <+71>:    pop    %r12
+   0x00000000004017b3 <+73>:    retq   
+End of assembler dump.
+
+Dump of assembler code for function string_length:
+   0x0000000000401754 <+0>:     mov    $0x0,%eax                    # %rax = 0
+   0x0000000000401759 <+5>:     jmp    0x401763 <string_length+15>
+   0x000000000040175b <+7>:     add    $0x1,%rdi                    # loop: %rdi += 1
+   0x000000000040175f <+11>:    add    $0x1,%rax                    # %rax += 1
+   0x0000000000401763 <+15>:    cmpb   $0x0,(%rdi)                  # identify string is to end or not
+   0x0000000000401766 <+18>:    jne    0x40175b <string_length+7>   # continue
+   0x0000000000401768 <+20>:    repz retq 
+End of assembler dump.
