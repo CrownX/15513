@@ -1,0 +1,43 @@
+Dump of assembler code for function phase_2:
+   0x000000000040114c <+0>:     push   %rbx                         
+   0x000000000040114d <+1>:     sub    $0x30,%rsp                   # 
+   0x0000000000401151 <+5>:     mov    %rsp,%rsi                    # %rsi = %rsp
+   0x0000000000401154 <+8>:     callq  0x4019b5 <read_six_numbers>  
+   0x0000000000401159 <+13>:    cmpq   $0x9,(%rsp)                  #
+   0x000000000040115e <+18>:    je     0x401165 <phase_2+25>        # if equal, jump
+   0x0000000000401160 <+20>:    callq  0x40197f <explode_bomb>
+   0x0000000000401165 <+25>:    mov    $0x1,%ebx                    # %rbx = 1
+   0x000000000040116a <+30>:    jmp    0x401183 <phase_2+55>        
+   0x000000000040116c <+32>:    mov    -0x8(%rsp,%rbx,8),%rax       # %rax = (%rsp + 8 * %rbx - 0x8)
+   0x0000000000401171 <+37>:    add    %rax,%rax                    # %rax += %rax
+   0x0000000000401174 <+40>:    cmp    %rax,(%rsp,%rbx,8)           # %rax : (%rsp)    
+   0x0000000000401178 <+44>:    je     0x40117f <phase_2+51>
+   0x000000000040117a <+46>:    callq  0x40197f <explode_bomb>
+   0x000000000040117f <+51>:    add    $0x1,%rbx                    # %rbx += 1
+   0x0000000000401183 <+55>:    cmp    $0x5,%rbx                    # %rbx == 0x5?
+   0x0000000000401187 <+59>:    jbe    0x40116c <phase_2+32>       
+   0x0000000000401189 <+61>:    add    $0x30,%rsp                  
+---Type <return> to continue, or q <return> to quit---
+   0x000000000040118d <+65>:    pop    %rbx
+   0x000000000040118e <+66>:    retq   
+End of assembler dump.
+
+Dump of assembler code for function read_six_numbers:
+   0x00000000004019b5 <+0>:     sub    $0x18,%rsp                   
+   0x00000000004019b9 <+4>:     mov    %rsi,%rdx                    # %rdx = %rsi (input param 2)
+   0x00000000004019bc <+7>:     lea    0x28(%rsi),%rsi              # %rsi = %rsi + 0x28
+   0x00000000004019c0 <+11>:    lea    0x20(%rdx),%rax              # %rax = %rdx + 0x20
+   0x00000000004019c4 <+15>:    lea    0x8(%rdx),%rcx               # %rcx = %rdx + 0x8
+   0x00000000004019c8 <+19>:    mov    %rsi,0x8(%rsp)               # 0x8(%rsp) = %rsi
+   0x00000000004019cd <+24>:    mov    %rax,(%rsp)                  # (%rsp) = %rax
+   0x00000000004019d1 <+28>:    lea    0x18(%rdx),%r9               # %r9 = %rdx + 0x18
+   0x00000000004019d5 <+32>:    lea    0x10(%rdx),%r8               # %r8 = %rdx + 0x10
+   0x00000000004019d9 <+36>:    mov    $0x402fe8,%esi               # %rsi = 0x0x402fe8
+   0x00000000004019de <+41>:    mov    $0x0,%eax                    # %rax = 0
+   0x00000000004019e3 <+46>:    callq  0x400d40 <__isoc99_sscanf@plt>
+   0x00000000004019e8 <+51>:    cmp    $0x5,%eax                    # 0x5 == %rax?
+   0x00000000004019eb <+54>:    jg     0x4019f2 <read_six_numbers+61>   # 0x5 > %rax, jump
+   0x00000000004019ed <+56>:    callq  0x40197f <explode_bomb>          
+   0x00000000004019f2 <+61>:    add    $0x18,%rsp                  
+   0x00000000004019f6 <+65>:    retq   
+End of assembler dump.
