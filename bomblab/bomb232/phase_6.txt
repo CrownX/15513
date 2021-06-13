@@ -1,0 +1,91 @@
+Dump of assembler code for function phase_6:
+   0x0000000000401318 <+0>:     push   %r12
+   0x000000000040131a <+2>:     push   %rbp
+   0x000000000040131b <+3>:     push   %rbx
+   0x000000000040131c <+4>:     sub    $0x60,%rsp                   
+   0x0000000000401320 <+8>:     lea    0x30(%rsp),%rsi              
+   0x0000000000401325 <+13>:    callq  0x4019b5 <read_six_numbers>  
+   0x000000000040132a <+18>:    mov    $0x0,%ebp                    # $rbp = 0x0
+   0x000000000040132f <+23>:    jmp    0x40136c <phase_6+84>        
+   0x0000000000401331 <+25>:    mov    0x30(%rsp,%rbp,8),%rax       # loop1: $rax = ($rsp + 8 * $rbp + 0x30)
+   0x0000000000401336 <+30>:    sub    $0x1,%rax                    # $rax -= 1
+   0x000000000040133a <+34>:    cmp    $0x5,%rax                    # $rax : 0x5
+   0x000000000040133e <+38>:    jbe    0x401345 <phase_6+45>        # <=, jump
+   0x0000000000401340 <+40>:    callq  0x40197f <explode_bomb>      
+   0x0000000000401345 <+45>:    lea    0x1(%rbp),%r12               # $r12 = ($rbp + 0x1)
+   0x0000000000401349 <+49>:    mov    %r12,%rbx                    # $rbx = $r12
+   0x000000000040134c <+52>:    jmp    0x401363 <phase_6+75>        # jump
+   0x000000000040134e <+54>:    mov    0x30(%rsp,%rbx,8),%rax       # loop2: $rax = ($rsp + 8 * $rbx + 0x30)
+   0x0000000000401353 <+59>:    cmp    %rax,0x30(%rsp,%rbp,8)       # ($rsp + 8 * $rbp + 0x30) : $rax
+   0x0000000000401358 <+64>:    jne    0x40135f <phase_6+71>        # !=, jump
+   0x000000000040135a <+66>:    callq  0x40197f <explode_bomb>
+   0x000000000040135f <+71>:    add    $0x1,%rbx                    # $rbx += 1
+   0x0000000000401363 <+75>:    cmp    $0x5,%rbx                    # $rbx : 0x5
+   0x0000000000401367 <+79>:    jle    0x40134e <phase_6+54>        # <=, loop2 jump
+   0x0000000000401369 <+81>:    mov    %r12,%rbp                    # $rbp = $r12
+   0x000000000040136c <+84>:    cmp    $0x5,%rbp                    # $rbp : 0x5
+   0x0000000000401370 <+88>:    jle    0x401331 <phase_6+25>        # <=, loop1 jump
+---Type <return> to continue, or q <return> to quit---
+   0x0000000000401372 <+90>:    mov    $0x0,%ecx                    # $rcx = 0x0
+   0x0000000000401377 <+95>:    jmp    0x40139c <phase_6+132>       # jump
+   0x0000000000401379 <+97>:    mov    0x10(%rdx),%rdx              # loop4: $rdx = ($rdx + 0x10)
+   0x000000000040137d <+101>:   add    $0x1,%rax                    # $rax += 1
+   0x0000000000401381 <+105>:   jmp    0x40138d <phase_6+117>       # jump
+   0x0000000000401383 <+107>:   mov    $0x1,%eax                    # loop3: $rax = 1
+   0x0000000000401388 <+112>:   mov    $0x604340,%edx               # $rdx = 0x604340
+   0x000000000040138d <+117>:   cmp    %rax,0x30(%rsp,%rcx,8)       # ($rsp + 8 * $rcx + 0x30) : $rax
+   0x0000000000401392 <+122>:   jg     0x401379 <phase_6+97>        # >, loop4 jump
+   0x0000000000401394 <+124>:   mov    %rdx,(%rsp,%rcx,8)           # ($rsp + 8 * $rcx) = $rdx
+   0x0000000000401398 <+128>:   add    $0x1,%rcx                    # $rcx += 1
+   0x000000000040139c <+132>:   cmp    $0x5,%rcx                    # $rcx : 0x5
+   0x00000000004013a0 <+136>:   jle    0x401383 <phase_6+107>       # <=, loop3 jump
+---Type <return> to continue, or q <return> to quit---
+   0x00000000004013a2 <+138>:   mov    (%rsp),%rbx                  # $rbx = ($rsp)
+   0x00000000004013a6 <+142>:   mov    %rbx,%rcx                    # $rcx = $rbx
+   0x00000000004013a9 <+145>:   mov    $0x1,%eax                    # $rax = 1
+   0x00000000004013ae <+150>:   jmp    0x4013bf <phase_6+167>       # jump
+   0x00000000004013b0 <+152>:   mov    (%rsp,%rax,8),%rdx           # loop5: $rdx = ($rsp + 8 * $rax)
+   0x00000000004013b4 <+156>:   mov    %rdx,0x10(%rcx)              # ($rcx + 0x10) = $rdx
+   0x00000000004013b8 <+160>:   add    $0x1,%rax                    # $rax += 1
+   0x00000000004013bc <+164>:   mov    %rdx,%rcx                    # $rcx = $rdx
+   0x00000000004013bf <+167>:   cmp    $0x5,%rax                    # $rax : 0x5
+   0x00000000004013c3 <+171>:   jle    0x4013b0 <phase_6+152>       # <=, loop5 jump
+---Type <return> to continue, or q <return> to quit---
+   0x00000000004013c5 <+173>:   movq   $0x0,0x10(%rcx)              # ($rcx + 0x10) = 0
+   0x00000000004013cd <+181>:   mov    $0x0,%ebp                    # $rbp = 0
+   0x00000000004013d2 <+186>:   jmp    0x4013ed <phase_6+213>       # jump
+   0x00000000004013d4 <+188>:   mov    0x10(%rbx),%rax              # loop6: $rax = ($rbx + 0x10)
+   0x00000000004013d8 <+192>:   mov    (%rax),%rax                  # $rax = ($rax)
+   0x00000000004013db <+195>:   cmp    %rax,(%rbx)                  # ($rbx) : $rax
+   0x00000000004013de <+198>:   jle    0x4013e5 <phase_6+205>       # <=, jump
+   0x00000000004013e0 <+200>:   callq  0x40197f <explode_bomb>      
+   0x00000000004013e5 <+205>:   mov    0x10(%rbx),%rbx              # $rbx = ($rbx + 0x10)
+   0x00000000004013e9 <+209>:   add    $0x1,%rbp                    # $rbp += 1
+   0x00000000004013ed <+213>:   cmp    $0x4,%rbp                    # $rbp : 0x4
+   0x00000000004013f1 <+217>:   jle    0x4013d4 <phase_6+188>       # <=, loop6 jump
+   0x00000000004013f3 <+219>:   add    $0x60,%rsp                   # $rsp += 0x60
+   0x00000000004013f7 <+223>:   pop    %rbx     
+   0x00000000004013f8 <+224>:   pop    %rbp
+   0x00000000004013f9 <+225>:   pop    %r12
+   0x00000000004013fb <+227>:   retq   
+End of assembler dump.
+
+Dump of assembler code for function read_six_numbers:
+   0x00000000004019b5 <+0>:     sub    $0x18,%rsp                   
+   0x00000000004019b9 <+4>:     mov    %rsi,%rdx                    # %rdx = %rsi (input param 2)
+   0x00000000004019bc <+7>:     lea    0x28(%rsi),%rsi              # %rsi = %rsi + 0x28
+   0x00000000004019c0 <+11>:    lea    0x20(%rdx),%rax              # %rax = %rdx + 0x20
+   0x00000000004019c4 <+15>:    lea    0x8(%rdx),%rcx               # %rcx = %rdx + 0x8
+   0x00000000004019c8 <+19>:    mov    %rsi,0x8(%rsp)               # 0x8(%rsp) = %rsi
+   0x00000000004019cd <+24>:    mov    %rax,(%rsp)                  # (%rsp) = %rax
+   0x00000000004019d1 <+28>:    lea    0x18(%rdx),%r9               # %r9 = %rdx + 0x18
+   0x00000000004019d5 <+32>:    lea    0x10(%rdx),%r8               # %r8 = %rdx + 0x10
+   0x00000000004019d9 <+36>:    mov    $0x402fe8,%esi               # %rsi = 0x0x402fe8
+   0x00000000004019de <+41>:    mov    $0x0,%eax                    # %rax = 0
+   0x00000000004019e3 <+46>:    callq  0x400d40 <__isoc99_sscanf@plt>
+   0x00000000004019e8 <+51>:    cmp    $0x5,%eax                    # %rax: 5
+   0x00000000004019eb <+54>:    jg     0x4019f2 <read_six_numbers+61>   # %rax > 0x5, jump
+   0x00000000004019ed <+56>:    callq  0x40197f <explode_bomb>          
+   0x00000000004019f2 <+61>:    add    $0x18,%rsp                  
+   0x00000000004019f6 <+65>:    retq   
+End of assembler dump.
