@@ -1,28 +1,55 @@
 Dump of assembler code for function phase_4:
-   0x000000000040125d <+0>:     sub    $0x18,%rsp
-   0x0000000000401261 <+4>:     mov    %rsp,%rcx
-   0x0000000000401264 <+7>:     lea    0x8(%rsp),%rdx
-   0x0000000000401269 <+12>:    mov    $0x402ff8,%esi
-   0x000000000040126e <+17>:    mov    $0x0,%eax
+   0x000000000040125d <+0>:     sub    $0x18,%rsp                       
+   0x0000000000401261 <+4>:     mov    %rsp,%rcx                        # $rcx = $rsp
+   0x0000000000401264 <+7>:     lea    0x8(%rsp),%rdx                   # $rdx = ($rsp + 0x8)
+   0x0000000000401269 <+12>:    mov    $0x402ff8,%esi                   # $rsi = 0x402ff8
+   0x000000000040126e <+17>:    mov    $0x0,%eax                        # $rax = 0x0
    0x0000000000401273 <+22>:    callq  0x400d40 <__isoc99_sscanf@plt>
-   0x0000000000401278 <+27>:    cmp    $0x2,%eax
-   0x000000000040127b <+30>:    jne    0x40128d <phase_4+48>
-   0x000000000040127d <+32>:    mov    0x8(%rsp),%rax
-   0x0000000000401282 <+37>:    test   %rax,%rax
-   0x0000000000401285 <+40>:    js     0x40128d <phase_4+48>
-   0x0000000000401287 <+42>:    cmp    $0xe,%rax
-   0x000000000040128b <+46>:    jle    0x401292 <phase_4+53>
+   0x0000000000401278 <+27>:    cmp    $0x2,%eax                        # $rax : 2
+   0x000000000040127b <+30>:    jne    0x40128d <phase_4+48>            # !=, jump to <explode_bomb>
+   0x000000000040127d <+32>:    mov    0x8(%rsp),%rax                   # $rax = ($rsp + 0x8)
+   0x0000000000401282 <+37>:    test   %rax,%rax                        # ZF set when a&b == 0, SF set when a&b < 0
+   0x0000000000401285 <+40>:    js     0x40128d <phase_4+48>            # SF, jump to <explode_bomb>
+   0x0000000000401287 <+42>:    cmp    $0xe,%rax                        # $rax : 0xe
+   0x000000000040128b <+46>:    jle    0x401292 <phase_4+53>            # $rax <= 0xe, jump <+53>
    0x000000000040128d <+48>:    callq  0x40197f <explode_bomb>
-   0x0000000000401292 <+53>:    mov    $0xe,%edx
-   0x0000000000401297 <+58>:    mov    $0x0,%esi
-   0x000000000040129c <+63>:    mov    0x8(%rsp),%rdi
-   0x00000000004012a1 <+68>:    callq  0x40121a <func4>
+   0x0000000000401292 <+53>:    mov    $0xe,%edx                        # $rax = 0xe
+   0x0000000000401297 <+58>:    mov    $0x0,%esi                        # $rsi = 0x0
+   0x000000000040129c <+63>:    mov    0x8(%rsp),%rdi                   # $rdi = ($rsp + 0x8)
+   0x00000000004012a1 <+68>:    callq  0x40121a <func4>                 
 ---Type <return> to continue, or q <return> to quit---
-   0x00000000004012a6 <+73>:    cmp    $0x7,%rax
-   0x00000000004012aa <+77>:    jne    0x4012b3 <phase_4+86>
-   0x00000000004012ac <+79>:    cmpq   $0x7,(%rsp)
-   0x00000000004012b1 <+84>:    je     0x4012b8 <phase_4+91>
+   0x00000000004012a6 <+73>:    cmp    $0x7,%rax                        # $rax : 0x7
+   0x00000000004012aa <+77>:    jne    0x4012b3 <phase_4+86>            # !=, jump to <explode_bomb>
+   0x00000000004012ac <+79>:    cmpq   $0x7,(%rsp)                      # ($rsp) : 0x7
+   0x00000000004012b1 <+84>:    je     0x4012b8 <phase_4+91>            # =, jump
    0x00000000004012b3 <+86>:    callq  0x40197f <explode_bomb>
    0x00000000004012b8 <+91>:    add    $0x18,%rsp
    0x00000000004012bc <+95>:    retq   
+End of assembler dump.
+
+Dump of assembler code for function func4:
+   0x000000000040121a <+0>:     push   %rbx
+   0x000000000040121b <+1>:     mov    %rdx,%rax                # $rax = $rdx, 14
+   0x000000000040121e <+4>:     sub    %rsi,%rax                # $rax -= $rsi
+   0x0000000000401221 <+7>:     mov    %rax,%rbx                # $rbx = $rax, 14
+   0x0000000000401224 <+10>:    shr    $0x3f,%rbx               # $rbx = $rbx >> 0x3f = $rbx >> 63, (sign bit)
+   0x0000000000401228 <+14>:    add    %rbx,%rax                # $rax += $rbx, 14
+   0x000000000040122b <+17>:    sar    %rax                     # $rax = $rax >> 1, 7
+   0x000000000040122e <+20>:    lea    (%rax,%rsi,1),%rbx       # $rbx = ($rax + 1 * $rsi), 7
+   0x0000000000401232 <+24>:    cmp    %rdi,%rbx                # $rbx : $rdi
+   0x0000000000401235 <+27>:    jle    0x401245 <func4+43>      # signed <=, jump
+   0x0000000000401237 <+29>:    lea    -0x1(%rbx),%rdx
+   0x000000000040123b <+33>:    callq  0x40121a <func4>
+   0x0000000000401240 <+38>:    add    %rbx,%rax
+   0x0000000000401243 <+41>:    jmp    0x40125b <func4+65>      
+   0x0000000000401245 <+43>:    cmp    %rdi,%rbx                # $rbx : $rdi
+   0x0000000000401248 <+46>:    jge    0x401258 <func4+62>      # >=, jump
+   0x000000000040124a <+48>:    lea    0x1(%rbx),%rsi
+   0x000000000040124e <+52>:    callq  0x40121a <func4>
+   0x0000000000401253 <+57>:    add    %rbx,%rax
+---Type <return> to continue, or q <return> to quit---
+   0x0000000000401256 <+60>:    jmp    0x40125b <func4+65>
+   0x0000000000401258 <+62>:    mov    %rbx,%rax                # $rax = $rbx
+   0x000000000040125b <+65>:    pop    %rbx                     
+   0x000000000040125c <+66>:    retq   
 End of assembler dump.
