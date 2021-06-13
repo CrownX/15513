@@ -1,0 +1,28 @@
+Dump of assembler code for function phase_4:
+   0x000000000040125d <+0>:     sub    $0x18,%rsp
+   0x0000000000401261 <+4>:     mov    %rsp,%rcx
+   0x0000000000401264 <+7>:     lea    0x8(%rsp),%rdx
+   0x0000000000401269 <+12>:    mov    $0x402ff8,%esi
+   0x000000000040126e <+17>:    mov    $0x0,%eax
+   0x0000000000401273 <+22>:    callq  0x400d40 <__isoc99_sscanf@plt>
+   0x0000000000401278 <+27>:    cmp    $0x2,%eax
+   0x000000000040127b <+30>:    jne    0x40128d <phase_4+48>
+   0x000000000040127d <+32>:    mov    0x8(%rsp),%rax
+   0x0000000000401282 <+37>:    test   %rax,%rax
+   0x0000000000401285 <+40>:    js     0x40128d <phase_4+48>
+   0x0000000000401287 <+42>:    cmp    $0xe,%rax
+   0x000000000040128b <+46>:    jle    0x401292 <phase_4+53>
+   0x000000000040128d <+48>:    callq  0x40197f <explode_bomb>
+   0x0000000000401292 <+53>:    mov    $0xe,%edx
+   0x0000000000401297 <+58>:    mov    $0x0,%esi
+   0x000000000040129c <+63>:    mov    0x8(%rsp),%rdi
+   0x00000000004012a1 <+68>:    callq  0x40121a <func4>
+---Type <return> to continue, or q <return> to quit---
+   0x00000000004012a6 <+73>:    cmp    $0x7,%rax
+   0x00000000004012aa <+77>:    jne    0x4012b3 <phase_4+86>
+   0x00000000004012ac <+79>:    cmpq   $0x7,(%rsp)
+   0x00000000004012b1 <+84>:    je     0x4012b8 <phase_4+91>
+   0x00000000004012b3 <+86>:    callq  0x40197f <explode_bomb>
+   0x00000000004012b8 <+91>:    add    $0x18,%rsp
+   0x00000000004012bc <+95>:    retq   
+End of assembler dump.

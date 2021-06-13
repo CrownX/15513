@@ -35,8 +35,8 @@ Dump of assembler code for function read_six_numbers:
    0x00000000004019d9 <+36>:    mov    $0x402fe8,%esi               # %rsi = 0x0x402fe8
    0x00000000004019de <+41>:    mov    $0x0,%eax                    # %rax = 0
    0x00000000004019e3 <+46>:    callq  0x400d40 <__isoc99_sscanf@plt>
-   0x00000000004019e8 <+51>:    cmp    $0x5,%eax                    # 0x5 == %rax?
-   0x00000000004019eb <+54>:    jg     0x4019f2 <read_six_numbers+61>   # 0x5 > %rax, jump
+   0x00000000004019e8 <+51>:    cmp    $0x5,%eax                    # %rax: 5
+   0x00000000004019eb <+54>:    jg     0x4019f2 <read_six_numbers+61>   # %rax > 0x5, jump
    0x00000000004019ed <+56>:    callq  0x40197f <explode_bomb>          
    0x00000000004019f2 <+61>:    add    $0x18,%rsp                  
    0x00000000004019f6 <+65>:    retq   

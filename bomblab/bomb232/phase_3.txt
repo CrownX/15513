@@ -1,0 +1,39 @@
+Dump of assembler code for function phase_3:
+   0x000000000040118f <+0>:     sub    $0x18,%rsp                       
+   0x0000000000401193 <+4>:     mov    %rsp,%rcx                        # %rcx = %rsp
+   0x0000000000401196 <+7>:     lea    0x8(%rsp),%rdx                   # %rdx = (%rsp + 8)
+   0x000000000040119b <+12>:    mov    $0x402ff8,%esi                   # %rsi = 0x402ff8
+   0x00000000004011a0 <+17>:    mov    $0x0,%eax                        # %rax = 0x0
+   0x00000000004011a5 <+22>:    callq  0x400d40 <__isoc99_sscanf@plt>
+   0x00000000004011aa <+27>:    cmp    $0x1,%eax                        # %rax : 0x1
+   0x00000000004011ad <+30>:    jg     0x4011b4 <phase_3+37>            # signed >, jump
+   0x00000000004011af <+32>:    callq  0x40197f <explode_bomb>
+   0x00000000004011b4 <+37>:    cmpq   $0x8,0x8(%rsp)                   # (%rsp + 8) : 0x8?
+   0x00000000004011ba <+43>:    ja     0x4011f9 <phase_3+106>           # unsigned >, jump
+   0x00000000004011bc <+45>:    mov    0x8(%rsp),%rax                   # %rax = (%rsp + 8)
+   0x00000000004011c1 <+50>:    jmpq   *0x402b20(,%rax,8)               # jump to 0x00000000004011f2 <+99>
+   0x00000000004011c8 <+57>:    mov    $0x41,%eax
+   0x00000000004011cd <+62>:    jmp    0x40120a <phase_3+123>
+   0x00000000004011cf <+64>:    mov    $0x66,%eax
+   0x00000000004011d4 <+69>:    jmp    0x40120a <phase_3+123>
+   0x00000000004011d6 <+71>:    mov    $0x3c,%eax
+---Type <return> to continue, or q <return> to quit---
+   0x00000000004011db <+76>:    jmp    0x40120a <phase_3+123>
+   0x00000000004011dd <+78>:    mov    $0x66,%eax
+   0x00000000004011e2 <+83>:    jmp    0x40120a <phase_3+123>
+   0x00000000004011e4 <+85>:    mov    $0x2a,%eax
+   0x00000000004011e9 <+90>:    jmp    0x40120a <phase_3+123>
+   0x00000000004011eb <+92>:    mov    $0x6d,%eax
+   0x00000000004011f0 <+97>:    jmp    0x40120a <phase_3+123>
+   0x00000000004011f2 <+99>:    mov    $0x61,%eax                       # %rax = 0x61
+   0x00000000004011f7 <+104>:   jmp    0x40120a <phase_3+123>           # jump to <+123>
+   0x00000000004011f9 <+106>:   callq  0x40197f <explode_bomb>
+   0x00000000004011fe <+111>:   mov    $0x0,%eax
+   0x0000000000401203 <+116>:   jmp    0x40120a <phase_3+123>
+   0x0000000000401205 <+118>:   mov    $0x58,%eax
+   0x000000000040120a <+123>:   cmp    (%rsp),%rax                      # %rax : (%rsp)
+   0x000000000040120e <+127>:   je     0x401215 <phase_3+134>           # =, jump
+   0x0000000000401210 <+129>:   callq  0x40197f <explode_bomb>
+   0x0000000000401215 <+134>:   add    $0x18,%rsp
+   0x0000000000401219 <+138>:   retq   
+End of assembler dump.
