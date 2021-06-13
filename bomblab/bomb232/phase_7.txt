@@ -1,0 +1,110 @@
+Dump of assembler code for function phase_defused:
+   0x0000000000401b40 <+0>:     sub    $0x78,%rsp
+   0x0000000000401b44 <+4>:     mov    $0x1,%edi
+   0x0000000000401b49 <+9>:     callq  0x401877 <send_msg>
+   0x0000000000401b4e <+14>:    cmpq   $0x6,0x203d32(%rip)        # 0x605888 <num_input_strings>
+   0x0000000000401b56 <+22>:    jne    0x401bdf <phase_defused+159>
+   0x0000000000401b5c <+28>:    lea    0x8(%rsp),%r9
+   0x0000000000401b61 <+33>:    lea    0x20(%rsp),%r8
+   0x0000000000401b66 <+38>:    lea    0x10(%rsp),%rcx
+   0x0000000000401b6b <+43>:    lea    0x18(%rsp),%rdx
+---Type <return> to continue, or q <return> to quit---
+   0x0000000000401b70 <+48>:    mov    $0x403044,%esi
+   0x0000000000401b75 <+53>:    mov    $0x605990,%edi
+   0x0000000000401b7a <+58>:    mov    $0x0,%eax
+   0x0000000000401b7f <+63>:    callq  0x400d40 <__isoc99_sscanf@plt>
+   0x0000000000401b84 <+68>:    cmp    $0x4,%eax
+   0x0000000000401b87 <+71>:    jne    0x401bcb <phase_defused+139>
+   0x0000000000401b89 <+73>:    lea    0x20(%rsp),%rdi
+   0x0000000000401b8e <+78>:    callq  0x401754 <string_length>
+   0x0000000000401b93 <+83>:    cmp    0x8(%rsp),%rax
+   0x0000000000401b98 <+88>:    jne    0x401bcb <phase_defused+139>
+---Type <return> to continue, or q <return> to quit---
+   0x0000000000401b9a <+90>:    mov    $0x604480,%esi
+   0x0000000000401b9f <+95>:    lea    0x20(%rsp),%rdi
+   0x0000000000401ba4 <+100>:   callq  0x40176a <strings_not_equal>
+   0x0000000000401ba9 <+105>:   test   %al,%al
+   0x0000000000401bab <+107>:   jne    0x401bcb <phase_defused+139>
+   0x0000000000401bad <+109>:   mov    $0x402c38,%edi
+   0x0000000000401bb2 <+114>:   callq  0x400d30 <puts@plt>
+   0x0000000000401bb7 <+119>:   mov    $0x402c60,%edi
+   0x0000000000401bbc <+124>:   callq  0x400d30 <puts@plt>
+   0x0000000000401bc1 <+129>:   mov    $0x0,%eax
+---Type <return> to continue, or q <return> to quit---
+   0x0000000000401bc6 <+134>:   callq  0x401450 <secret_phase>
+   0x0000000000401bcb <+139>:   mov    $0x402c98,%edi
+   0x0000000000401bd0 <+144>:   callq  0x400d30 <puts@plt>
+   0x0000000000401bd5 <+149>:   mov    $0x402cc8,%edi
+   0x0000000000401bda <+154>:   callq  0x400d30 <puts@plt>
+   0x0000000000401bdf <+159>:   add    $0x78,%rsp
+   0x0000000000401be3 <+163>:   retq   
+End of assembler dump.
+
+Dump of assembler code for function secret_phase:
+   0x0000000000401450 <+0>:     sub    $0x28,%rsp
+   0x0000000000401454 <+4>:     callq  0x4019f7 <read_line>
+   0x0000000000401459 <+9>:     movq   $0x0,0x8(%rsp)
+   0x0000000000401462 <+18>:    lea    0x10(%rsp),%rcx
+   0x0000000000401467 <+23>:    lea    0x18(%rsp),%rdx
+   0x000000000040146c <+28>:    mov    $0x402b0c,%esi
+   0x0000000000401471 <+33>:    mov    %rax,%rdi
+   0x0000000000401474 <+36>:    mov    $0x0,%eax
+   0x0000000000401479 <+41>:    callq  0x400d40 <__isoc99_sscanf@plt>
+---Type <return> to continue, or q <return> to quit---
+   0x000000000040147e <+46>:    cmp    $0x2,%eax
+   0x0000000000401481 <+49>:    je     0x401488 <secret_phase+56>
+   0x0000000000401483 <+51>:    callq  0x40197f <explode_bomb>
+   0x0000000000401488 <+56>:    mov    0x18(%rsp),%rax
+   0x000000000040148d <+61>:    sub    $0x79,%rax
+   0x0000000000401491 <+65>:    cmp    $0x7a,%rax
+   0x0000000000401495 <+69>:    jbe    0x40149c <secret_phase+76>
+   0x0000000000401497 <+71>:    callq  0x40197f <explode_bomb>
+   0x000000000040149c <+76>:    lea    0x8(%rsp),%rdx
+   0x00000000004014a1 <+81>:    mov    0x18(%rsp),%rsi
+---Type <return> to continue, or q <return> to quit---
+   0x00000000004014a6 <+86>:    mov    $0x604160,%edi
+   0x00000000004014ab <+91>:    callq  0x4013fc <fun7>
+   0x00000000004014b0 <+96>:    cmp    $0x6,%rax
+   0x00000000004014b4 <+100>:   je     0x4014bb <secret_phase+107>
+   0x00000000004014b6 <+102>:   callq  0x40197f <explode_bomb>
+   0x00000000004014bb <+107>:   mov    0x10(%rsp),%rax
+   0x00000000004014c0 <+112>:   cmp    %rax,0x8(%rsp)
+   0x00000000004014c5 <+117>:   je     0x4014cc <secret_phase+124>
+   0x00000000004014c7 <+119>:   callq  0x40197f <explode_bomb>
+   0x00000000004014cc <+124>:   mov    $0x402b80,%edi
+---Type <return> to continue, or q <return> to quit---
+   0x00000000004014d1 <+129>:   callq  0x400d30 <puts@plt>
+   0x00000000004014d6 <+134>:   callq  0x401b40 <phase_defused>
+   0x00000000004014db <+139>:   add    $0x28,%rsp
+   0x00000000004014df <+143>:   retq   
+End of assembler dump.
+
+Dump of assembler code for function fun7:
+   0x00000000004013fc <+0>:     sub    $0x8,%rsp
+   0x0000000000401400 <+4>:     test   %rdi,%rdi
+   0x0000000000401403 <+7>:     je     0x40143d <fun7+65>
+   0x0000000000401405 <+9>:     mov    (%rdx),%rax
+   0x0000000000401408 <+12>:    shl    $0x8,%rax
+   0x000000000040140c <+16>:    add    (%rdi),%rax
+   0x000000000040140f <+19>:    mov    %rax,(%rdx)
+   0x0000000000401412 <+22>:    mov    (%rdi),%rax
+   0x0000000000401415 <+25>:    cmp    %rsi,%rax
+---Type <return> to continue, or q <return> to quit---
+   0x0000000000401418 <+28>:    jle    0x401428 <fun7+44>
+   0x000000000040141a <+30>:    mov    0x8(%rdi),%rdi
+   0x000000000040141e <+34>:    callq  0x4013fc <fun7>
+   0x0000000000401423 <+39>:    add    %rax,%rax
+   0x0000000000401426 <+42>:    jmp    0x40144b <fun7+79>
+   0x0000000000401428 <+44>:    cmp    %rsi,%rax
+   0x000000000040142b <+47>:    je     0x401446 <fun7+74>
+   0x000000000040142d <+49>:    mov    0x10(%rdi),%rdi
+   0x0000000000401431 <+53>:    callq  0x4013fc <fun7>
+   0x0000000000401436 <+58>:    lea    0x1(%rax,%rax,1),%rax
+---Type <return> to continue, or q <return> to quit---
+   0x000000000040143b <+63>:    jmp    0x40144b <fun7+79>
+   0x000000000040143d <+65>:    mov    $0xffffffffffffffff,%rax
+   0x0000000000401444 <+72>:    jmp    0x40144b <fun7+79>
+   0x0000000000401446 <+74>:    mov    $0x0,%eax
+   0x000000000040144b <+79>:    add    $0x8,%rsp
+   0x000000000040144f <+83>:    retq   
+End of assembler dump.
