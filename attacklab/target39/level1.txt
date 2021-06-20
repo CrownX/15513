@@ -1,0 +1,59 @@
+0000000000421f4a <Gets>:
+  421f4a:	41 54                	push   %r12
+  421f4c:	55                   	push   %rbp
+  421f4d:	53                   	push   %rbx
+  421f4e:	49 89 fc             	mov    %rdi,%r12
+  421f51:	c7 05 c9 41 20 00 00 	movl   $0x0,0x2041c9(%rip)        # 626124 <gets_cnt>
+  421f58:	00 00 00 
+  421f5b:	48 89 fb             	mov    %rdi,%rbx
+  421f5e:	eb 11                	jmp    421f71 <Gets+0x27>
+  421f60:	48 8d 6b 01          	lea    0x1(%rbx),%rbp
+  421f64:	88 03                	mov    %al,(%rbx)
+  421f66:	0f b6 f8             	movzbl %al,%edi
+  421f69:	e8 42 ff ff ff       	callq  421eb0 <save_char>
+  421f6e:	48 89 eb             	mov    %rbp,%rbx
+  421f71:	48 8b 3d 78 35 20 00 	mov    0x203578(%rip),%rdi        # 6254f0 <infile>
+  421f78:	e8 e3 ed fd ff       	callq  400d60 <_IO_getc@plt>
+  421f7d:	83 f8 ff             	cmp    $0xffffffff,%eax
+  421f80:	74 05                	je     421f87 <Gets+0x3d>
+  421f82:	83 f8 0a             	cmp    $0xa,%eax
+  421f85:	75 d9                	jne    421f60 <Gets+0x16>
+  421f87:	c6 03 00             	movb   $0x0,(%rbx)
+  421f8a:	b8 00 00 00 00       	mov    $0x0,%eax
+  421f8f:	e8 74 ff ff ff       	callq  421f08 <save_term>
+  421f94:	4c 89 e0             	mov    %r12,%rax
+  421f97:	5b                   	pop    %rbx
+  421f98:	5d                   	pop    %rbp
+  421f99:	41 5c                	pop    %r12
+  421f9b:	c3                   	retq  
+  
+  0000000000421d0c <getbuf>:
+  421d0c:	48 83 ec 18          	sub    $0x18,%rsp
+  421d10:	48 89 e7             	mov    %rsp,%rdi
+  421d13:	e8 32 02 00 00       	callq  421f4a <Gets>
+  421d18:	b8 01 00 00 00       	mov    $0x1,%eax
+  421d1d:	48 83 c4 18          	add    $0x18,%rsp
+  421d21:	c3                   	retq   
+
+0000000000421e86 <test>:
+  421e86:	48 83 ec 08          	sub    $0x8,%rsp
+  421e8a:	b8 00 00 00 00       	mov    $0x0,%eax
+  421e8f:	e8 78 fe ff ff       	callq  421d0c <getbuf>
+  421e94:	89 c6                	mov    %eax,%esi
+  421e96:	bf c8 36 42 00       	mov    $0x4236c8,%edi
+  421e9b:	b8 00 00 00 00       	mov    $0x0,%eax
+  421ea0:	e8 db ed fd ff       	callq  400c80 <printf@plt>
+  421ea5:	48 83 c4 08          	add    $0x8,%rsp
+  421ea9:	c3                   	retq   
+  421eaa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+  
+0000000000421d22 <touch1>:
+  421d22:	48 83 ec 08          	sub    $0x8,%rsp
+  421d26:	c7 05 cc 37 20 00 01 	movl   $0x1,0x2037cc(%rip)        # 6254fc <vlevel>
+  421d2d:	00 00 00 
+  421d30:	bf ff 35 42 00       	mov    $0x4235ff,%edi
+  421d35:	e8 16 ef fd ff       	callq  400c50 <puts@plt>
+  421d3a:	bf 01 00 00 00       	mov    $0x1,%edi
+  421d3f:	e8 f5 03 00 00       	callq  422139 <validate>
+  421d44:	bf 00 00 00 00       	mov    $0x0,%edi
+  421d49:	e8 a2 f0 fd ff       	callq  400df0 <exit@plt>
