@@ -2,7 +2,10 @@
 # Makefile for cordlab
 #
 SHELL = /bin/bash
+# For shark machines
 CC = $(LLVM_PATH)clang
+# For local system
+#CC = /usr/bin/clang
 CFLAGS = -O0 -g -Werror -std=c99
 
 # Path to LLVM binaries

@@ -5,7 +5,7 @@
  * 15-513 Introduction to Computer Systems
  *
  * TODO: fill in your name and Andrew ID below
- * @author XXX <XXX@andrew.cmu.edu>
+ * @author Zhiqing Xiao <zhiqingx@andrew.cmu.edu>
  */
 
 #include <assert.h>
@@ -37,7 +37,7 @@ bool is_cord(const cord_t *R) {
     }
 
     /* Non-leaf */
-    //if (0 < R->len && NULL == R->data) {
+    // if (0 < R->len && NULL == R->data) {
     if (0 < R->len) {
         size_t cord_len = cord_length(R->left) + cord_length(R->right);
         return R->len == cord_len && is_cord(R->left) && is_cord(R->right);
@@ -171,7 +171,7 @@ char cord_charat(const cord_t *R, size_t i) {
     }
 
     /* Recursion */
-    size_t left_len = (NULL == R->left)? 0: R->left->len;
+    size_t left_len = (NULL == R->left) ? 0 : R->left->len;
     if (i < left_len) {
         return cord_charat(R->left, i);
     } else {
@@ -200,21 +200,22 @@ const cord_t *cord_sub(const cord_t *R, size_t lo, size_t hi) {
     if (NULL == R->left && NULL == R->right) {
         const char *data = R->data;
         char *result = xmalloc(hi - lo + 1);
-        for (int i=0, j=lo; j<hi; i++, j++) {
+        for (int i = 0, j = lo; j < hi; i++, j++) {
             *(result + i) = *(data + j);
         }
         return cord_new(result);
     }
 
     /* Non-leaf */
-    size_t left_len = (NULL == R->left)? 0: R->left->len;
+    size_t left_len = (NULL == R->left) ? 0 : R->left->len;
     if (hi <= left_len) {
         return cord_sub(R->left, lo, hi);
     } else if (left_len <= lo) {
         return cord_sub(R->right, lo - left_len, hi - left_len);
     } else {
         const cord_t *left = cord_sub(R->left, lo, left_len);
-        const cord_t *right = cord_sub(R->right, left_len - left_len, hi - left_len);
+        const cord_t *right =
+            cord_sub(R->right, left_len - left_len, hi - left_len);
         return cord_join(left, right);
     }
 }
